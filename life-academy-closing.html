@@ -1276,82 +1276,41 @@ function buildReview() {
 }
 
 
-// ══ LINE FLEX MESSAGE NOTIFICATION ════════════════════════════
-function buildInfoRow(icon, label, value) {
-  return {
-    type: 'box', layout: 'horizontal', spacing: 'md',
-    paddingTop: '4px', paddingBottom: '4px',
-    contents: [
-      { type: 'text', text: icon + ' ' + label, color: '#64748b', size: 'xs', flex: 2 },
-      { type: 'text', text: String(value), color: '#1e293b', size: 'xs', flex: 3, align: 'end', weight: 'bold', wrap: true }
-    ]
-  };
-}
-
+// ══ LINE NOTIFICATION VIA SUPABASE ══════════════════════════════
 async function sendLineNotify(data) {
   const { name, biz, email, lineId, phases, payLabel, todayAmt, totalAmt, startDate, contractId } = data;
-  const flexMsg = {
-    type: 'flex',
-    altText: '🎉 ลูกค้าใหม่ ' + biz + ' — ' + contractId,
-    contents: {
-      type: 'bubble', size: 'kilo',
-      header: {
-        type: 'box', layout: 'vertical',
-        backgroundColor: '#0f2557', paddingAll: '16px',
-        contents: [
-          {
-            type: 'box', layout: 'horizontal', paddingBottom: '4px',
-            contents: [
-              { type: 'text', text: '🎉 ลูกค้าใหม่', color: '#f59e0b', size: 'xs', weight: 'bold', flex: 0 },
-              { type: 'text', text: contractId, color: 'rgba(255,255,255,0.45)', size: 'xs', align: 'end' }
-            ]
-          },
-          { type: 'text', text: name, color: '#ffffff', size: 'xl', weight: 'bold', margin: 'sm' },
-          { type: 'text', text: email, color: 'rgba(255,255,255,0.55)', size: 'xs' }
-        ]
-      },
-      body: {
-        type: 'box', layout: 'vertical', paddingAll: '16px', spacing: 'sm',
-        contents: [
-          {
-            type: 'box', layout: 'vertical',
-            backgroundColor: '#1a1a2e', cornerRadius: '8px', paddingAll: '12px', margin: 'none',
-            contents: [
-              { type: 'text', text: '📦 แพ็กเกจที่เลือก', color: '#f59e0b', size: 'xs', weight: 'bold' },
-              { type: 'text', text: phases, color: '#fbbf24', size: 'sm', weight: 'bold', margin: 'xs', wrap: true }
-            ]
-          },
-          buildInfoRow('💳', 'ชำระเงิน', payLabel + ' = ฿' + todayAmt.toLocaleString()),
-          buildInfoRow('💬', 'LINE', lineId),
-          buildInfoRow('📅', 'เริ่มงาน', startDate || 'ยืดหยุ่น')
-        ]
-      },
-      footer: {
-        type: 'box', layout: 'vertical', paddingAll: '12px', spacing: 'sm',
-        contents: [
-          {
-            type: 'button', style: 'primary', color: '#f59e0b', height: 'sm',
-            action: { type: 'uri', label: '📞 ติดต่อลูกค้า LINE', uri: 'https://line.me/ti/p/' + (lineId||'').replace('@','~') }
-          }
-        ]
-      }
+  
+  const payload = {
+    formType: "LIFE Academy - ใบสั่งซื้อ",
+    project: "WEB_APP",
+    data: {
+      "ชื่อ": name,
+      "ธุรกิจ": biz,
+      "อีเมล": email,
+      "LINE ID": lineId,
+      "แพ็กเกจ": phases,
+      "ชำระเงิน": payLabel + ' = ฿' + todayAmt.toLocaleString(),
+      "เริ่มงาน": startDate || 'ยืดหยุ่น',
+      "Booking Code": contractId
     }
   };
+
   try {
-    const res = await fetch('https://api.line.me/v2/bot/message/push', {
+    const res = await fetch('https://nheppvjayzxlblkeanxs.supabase.co/functions/v1/line-notify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 5WNFciKSWla7fY2HxhJmV9R6Mu/9s01x6f5DpwF95rAgmeFxxVduN/0d57ZSDVVitdXPp0xd8BeR6SNgWy4/4v5jbWUNK9nikwEnOQOCZowRDD9lqN2XyuIKYCAjW2yO1dLUWinSm4VYSpe1WbXWMwdB04t89/1O/w1cDnyilFU='
       },
-      body: JSON.stringify({
-        to: 'Ue652c6a963399b81a811eb04fe88c123',
-        messages: [flexMsg]
-      })
+      body: JSON.stringify(payload)
     });
-    console.log('LINE notify sent:', res.status);
+    
+    if (!res.ok) {
+      console.error('LINE notify error:', await res.text());
+    } else {
+      console.log('LINE notify sent successfully via Supabase proxy');
+    }
   } catch(e) {
-    console.log('LINE notify error (CORS expected in demo):', e.message);
+    console.error('LINE notify exception:', e.message);
   }
 }
 

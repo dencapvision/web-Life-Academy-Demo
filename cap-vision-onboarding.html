@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAP Vision — Onboarding Form | เริ่มพัฒนาเว็บแอปของคุณ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2557; --blue:#1a56db; --blue2:#3b82f6; --blue-lt:#eff6ff;
+  --gold:#f59e0b; --gold-lt:#fef9ee;
+  --green:#059669; --green-lt:#f0fdf4;
+  --teal:#0891b2;  --purple:#7c3aed;
+  --bg:#f0f4ff; --white:#fff;
+  --text:#1e293b; --muted:#64748b; --border:#e2e8f0;
+  --sh:0 4px 24px rgba(15,37,87,.08);
+  --r:16px;
+  --th:'IBM Plex Sans Thai',sans-serif;
+  --tu:'Space Grotesk',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--th);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+
+/* HEADER */
+.top-bar{background:linear-gradient(135deg,var(--navy),#1e3a8a);padding:0;}
+.top-inner{max-width:720px;margin:0 auto;padding:28px 20px 24px;color:#fff;text-align:center;position:relative;}
+.top-inner::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 50%,rgba(59,130,246,.2) 0%,transparent 50%),
+             radial-gradient(circle at 80% 30%,rgba(245,158,11,.1) 0%,transparent 40%);}
+.cap-logo{font-family:var(--tu);font-size:13px;font-weight:700;color:rgba(255,255,255,.5);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;position:relative;}
+.form-title{font-size:clamp(22px,5vw,30px);font-weight:700;line-height:1.25;
+  margin-bottom:8px;position:relative;}
+.form-title .gold{color:var(--gold);}
+.form-sub{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;position:relative;margin-bottom:20px;}
+.phase-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;}
+.phase-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:50px;padding:4px 14px;font-size:11px;font-weight:700;font-family:var(--tu);
+  color:#fff;letter-spacing:.04em;}
+.phase-badge.p1{background:rgba(59,130,246,.25);border-color:rgba(59,130,246,.4);}
+.phase-badge.p2{background:rgba(8,145,178,.25);border-color:rgba(8,145,178,.4);}
+.phase-badge.p3{background:rgba(124,58,237,.25);border-color:rgba(124,58,237,.4);}
+.gold-bar{height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2,#fbbf24));}
+
+/* PROGRESS */
+.progress-wrap{max-width:720px;margin:0 auto;padding:20px 20px 0;}
+.section-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;}
+.section-tabs::-webkit-scrollbar{height:3px;}
+.section-tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.stab{
+  flex-shrink:0;padding:7px 14px;border-radius:50px;font-size:12px;font-weight:600;
+  font-family:var(--tu);color:var(--muted);background:#fff;border:1.5px solid var(--border);
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.stab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.stab.done{background:var(--green-lt);color:var(--green);border-color:#bbf7d0;}
+.progress-bar-outer{height:4px;background:var(--border);border-radius:2px;margin-top:12px;}
+.progress-bar-inner{height:4px;background:linear-gradient(90deg,var(--navy),var(--blue2));
+  border-radius:2px;transition:width .4s ease;}
+
+/* DRAFT BANNER */
+.draft-banner{
+  max-width:720px;margin:12px auto 0;padding:0 20px;
+}
+.draft-inner{
+  background:var(--gold-lt);border:1px solid #fcd34d;border-radius:10px;
+  padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px;
+  color:#92400e;
+}
+.draft-inner button{
+  margin-left:auto;background:transparent;border:1px solid #fcd34d;border-radius:6px;
+  padding:3px 10px;font-size:11px;cursor:pointer;color:#92400e;font-family:var(--th);
+  transition:all .2s;
+}
+.draft-inner button:hover{background:#fcd34d;}
+
+/* MAIN FORM AREA */
+.form-wrap{max-width:720px;margin:16px auto;padding:0 20px 40px;}
+.section-card{
+  background:#fff;border-radius:var(--r);box-shadow:var(--sh);
+  overflow:hidden;margin-bottom:16px;display:none;
+}
+.section-card.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{
+  padding:20px 24px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.sec-num{
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:13px;font-weight:700;font-family:var(--tu);flex-shrink:0;
+}
+.n1{background:#eff6ff;color:var(--blue);}
+.n2{background:#fef3c7;color:#92400e;}
+.n3{background:#ecfeff;color:#0e7490;}
+.n4{background:#f0fdf4;color:var(--green);}
+.n5{background:#fdf4ff;color:var(--purple);}
+.n6{background:#fff7ed;color:#c2410c;}
+.sec-head h2{font-size:16px;font-weight:700;color:var(--navy);font-family:var(--tu);}
+.sec-head p{font-size:12px;color:var(--muted);margin-top:2px;}
+.phase-tag{
+  margin-left:auto;flex-shrink:0;background:var(--blue-lt);color:var(--blue);
+  font-size:10px;font-weight:700;font-family:var(--tu);padding:3px 10px;
+  border-radius:50px;letter-spacing:.04em;
+}
+.sec-body{padding:24px;}
+
+/* FORM ELEMENTS */
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.fg:last-child{margin-bottom:0;}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+.fg-row .fg{margin-bottom:0;}
+label{font-size:12px;font-weight:700;color:var(--navy);font-family:var(--tu);
+  display:flex;align-items:center;gap:6px;}
+label .req{color:#ef4444;}
+label .hint{font-size:11px;font-weight:400;color:var(--muted);margin-left:auto;}
+input[type=text],input[type=email],input[type=tel],input[type=url],
+input[type=date],select,textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;
+  font-family:var(--th);font-size:14px;color:var(--text);background:var(--bg);
+  outline:none;transition:border-color .2s,box-shadow .2s;width:100%;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--blue2);box-shadow:0 0 0 3px rgba(59,130,246,.1);background:#fff;
+}
+input.err{border-color:#ef4444;}
+textarea{resize:vertical;min-height:90px;}
+.err-msg{font-size:11px;color:#ef4444;font-family:var(--tu);}
+
+/* COLOR PICKERS */
+.color-row{display:flex;gap:10px;align-items:center;}
+.color-item{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.color-item label{font-size:10px;color:var(--muted);}
+input[type=color]{width:44px;height:44px;border-radius:10px;border:2px solid var(--border);
+  cursor:pointer;padding:2px;background:#fff;}
+
+/* RADIO / CHECKBOX GROUPS */
+.radio-group,.check-group{display:flex;flex-wrap:wrap;gap:8px;}
+.radio-opt,.check-opt{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border:1.5px solid var(--border);border-radius:50px;
+  cursor:pointer;font-size:13px;transition:all .2s;background:#fff;
+  user-select:none;
+}
+.radio-opt:hover,.check-opt:hover{border-color:var(--blue2);background:var(--blue-lt);}
+.radio-opt.selected,.check-opt.selected{
+  border-color:var(--navy);background:var(--blue-lt);color:var(--navy);font-weight:600;
+}
+.radio-opt input,.check-opt input{display:none;}
+
+/* STYLE CARDS */
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.style-card{
+  border:2px solid var(--border);border-radius:12px;padding:14px 12px;
+  cursor:pointer;transition:all .2s;text-align:center;background:#fff;
+}
+.style-card:hover{border-color:var(--blue2);transform:translateY(-2px);}
+.style-card.selected{border-color:var(--navy);background:var(--blue-lt);}
+.style-icon{font-size:24px;margin-bottom:6px;}
+.style-name{font-size:12px;font-weight:700;color:var(--navy);font-family:var(--tu);}
+.style-desc{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4;}
+
+/* DYNAMIC LIST */
+.dynamic-list{display:flex;flex-direction:column;gap:8px;}
+.dl-item{display:flex;gap:8px;align-items:center;}
+.dl-item input{flex:1;}
+.dl-remove{
+  width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);
+  background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--muted);flex-shrink:0;transition:all .2s;
+}
+.dl-remove:hover{border-color:#ef4444;color:#ef4444;background:#fef2f2;}
+.add-item-btn{
+  display:flex;align-items:center;gap:6px;padding:8px 16px;
+  border:1.5px dashed var(--border);border-radius:10px;background:transparent;
+  font-family:var(--th);font-size:13px;color:var(--muted);cursor:pointer;
+  transition:all .2s;width:100%;justify-content:center;margin-top:4px;
+}
+.add-item-btn:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-lt);}
+
+/* FAQ */
+.faq-item{
+  background:var(--bg);border-radius:12px;padding:14px;margin-bottom:10px;
+}
+.faq-item label{font-size:11px;color:var(--muted);margin-bottom:6px;display:block;}
+.faq-item input{margin-bottom:8px;}
+
+/* UPLOAD */
+.upload-zone{
+  border:2px dashed var(--border);border-radius:12px;padding:24px;
+  text-align:center;cursor:pointer;transition:all .2s;background:#fff;
+}
+.upload-zone:hover{border-color:var(--blue2);background:var(--blue-lt);}
+.upload-zone.has-file{border-color:var(--green);background:var(--green-lt);}
+.upload-icon{font-size:28px;margin-bottom:8px;}
+.upload-label{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.upload-hint{font-size:11px;color:var(--muted);}
+.upload-preview-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.preview-thumb{
+  width:60px;height:60px;border-radius:8px;object-fit:cover;
+  border:2px solid var(--border);
+}
+
+/* PHASE SELECT */
+.phase-select-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:4px;}
+.phase-sel-card{
+  border:2px solid var(--border);border-radius:12px;padding:14px 12px;
+  cursor:pointer;transition:all .2s;text-align:center;background:#fff;position:relative;
+}
+.phase-sel-card:hover{border-color:var(--blue2);transform:translateY(-2px);}
+.phase-sel-card.sel.p1c{border-color:var(--blue);background:var(--blue-lt);}
+.phase-sel-card.sel.p2c{border-color:var(--teal);background:#ecfeff;}
+.phase-sel-card.sel.p3c{border-color:var(--purple);background:#f5f3ff;}
+.phase-sel-icon{font-size:22px;margin-bottom:6px;}
+.phase-sel-name{font-size:12px;font-weight:700;color:var(--navy);font-family:var(--tu);line-height:1.3;}
+.phase-sel-price{font-size:11px;color:var(--muted);margin-top:3px;}
+.phase-sel-check{
+  position:absolute;top:8px;right:8px;width:18px;height:18px;
+  border-radius:50%;border:2px solid var(--border);background:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  transition:all .2s;
+}
+.phase-sel-card.sel .phase-sel-check{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+/* SECTION NAV */
+.sec-nav{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+.btn-prev{
+  background:transparent;color:var(--muted);padding:12px 22px;border-radius:50px;
+  border:1.5px solid var(--border);font-family:var(--th);font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .2s;
+}
+.btn-prev:hover{border-color:var(--navy);color:var(--navy);}
+.btn-next{
+  flex:1;background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:#fff;padding:13px 24px;border-radius:50px;font-family:var(--th);
+  font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,.3);}
+.btn-submit{
+  flex:1;background:linear-gradient(135deg,var(--green),#10b981);
+  color:#fff;padding:14px 24px;border-radius:50px;font-family:var(--th);
+  font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(5,150,105,.3);}
+
+/* SAVE INDICATOR */
+.save-indicator{
+  position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;
+  padding:8px 16px;border-radius:50px;font-size:12px;font-family:var(--tu);
+  opacity:0;transition:opacity .3s;z-index:100;display:flex;align-items:center;gap:6px;
+}
+.save-indicator.show{opacity:1;}
+
+/* SUCCESS */
+.success-screen{
+  display:none;max-width:720px;margin:40px auto;padding:0 20px 60px;text-align:center;
+}
+.success-screen.show{display:block;}
+.success-icon{
+  width:90px;height:90px;border-radius:50%;
+  background:linear-gradient(135deg,var(--green),#10b981);
+  display:flex;align-items:center;justify-content:center;font-size:42px;
+  margin:0 auto 24px;animation:popIn .6s cubic-bezier(.175,.885,.32,1.275);
+}
+@keyframes popIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+.success-title{font-size:28px;font-weight:700;color:var(--navy);font-family:var(--tu);margin-bottom:10px;}
+.success-sub{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:32px;}
+.summary-card{
+  background:linear-gradient(135deg,var(--navy),#1e40af);
+  border-radius:20px;padding:28px;color:#fff;text-align:left;margin-bottom:20px;
+}
+.summary-label{font-size:10px;color:rgba(255,255,255,.5);font-family:var(--tu);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.summary-id{font-size:20px;font-weight:700;font-family:var(--tu);color:var(--gold);margin-bottom:20px;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sg-item .sg-lbl{font-size:10px;color:rgba(255,255,255,.5);font-family:var(--tu);text-transform:uppercase;letter-spacing:.06em;}
+.sg-item .sg-val{font-size:13px;font-weight:600;color:#fff;margin-top:2px;}
+.next-box{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:24px;text-align:left;margin-bottom:20px;}
+.next-box h3{font-size:15px;font-weight:700;color:var(--navy);font-family:var(--tu);margin-bottom:14px;}
+.next-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.next-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text);line-height:1.5;}
+.step-dot{
+  width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;
+  font-size:11px;font-weight:700;font-family:var(--tu);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;margin-top:1px;
+}
+.line-cta{
+  background:#06c755;border-radius:var(--r);padding:20px;
+  display:flex;align-items:center;gap:16px;margin-bottom:20px;
+}
+.line-qr{width:72px;height:72px;border-radius:10px;background:#fff;padding:4px;flex-shrink:0;}
+.line-text{color:#fff;}
+.line-text strong{display:block;font-size:15px;font-family:var(--tu);margin-bottom:3px;}
+.line-text span{font-size:12px;opacity:.85;line-height:1.5;}
+.line-text a{color:#fff;text-decoration:underline;font-weight:700;}
+.action-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.action-btn{
+  padding:12px 22px;border-radius:50px;font-family:var(--th);font-size:14px;font-weight:700;
+  text-decoration:none;border:none;cursor:pointer;transition:all .2s;display:inline-flex;
+  align-items:center;gap:6px;
+}
+.btn-dark{background:var(--navy);color:#fff;}
+.btn-dark:hover{background:var(--blue);transform:translateY(-2px);}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .fg-row{grid-template-columns:1fr;}
+  .style-grid{grid-template-columns:repeat(2,1fr);}
+  .phase-select-grid{grid-template-columns:1fr;}
+  .summary-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="top-inner">
+    <div class="cap-logo">CAP Vision Institute × ครูเด่น มาสเตอร์ฟา</div>
+    <h1 class="form-title">แบบฟอร์มเริ่มต้น<span class="gold">โปรเจกต์</span></h1>
+    <p class="form-sub">กรอกข้อมูลด้านล่างเพื่อให้ทีมงานเริ่มออกแบบและพัฒนาเว็บแอปของคุณ<br>
+    บันทึกอัตโนมัติทุก field — กลับมากรอกต่อได้เสมอ</p>
+    <div class="phase-badges" id="phase-badges">
+      <span class="phase-badge" id="badge-all">ทุก Phase</span>
+    </div>
+  </div>
+  <div class="gold-bar"></div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="section-tabs" id="section-tabs">
+    <div class="stab active" id="tab1" onclick="goSection(1)">1. แบรนด์</div>
+    <div class="stab" id="tab2" onclick="goSection(2)">2. เนื้อหา</div>
+    <div class="stab" id="tab3" onclick="goSection(3)">3. ระบบ</div>
+    <div class="stab" id="tab4" onclick="goSection(4)">4. สื่อ</div>
+    <div class="stab" id="tab5" onclick="goSection(5)">5. เทคนิค</div>
+    <div class="stab" id="tab6" onclick="goSection(6)">6. Timeline</div>
+  </div>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progress-bar" style="width:16.6%"></div>
+  </div>
+</div>
+
+<!-- DRAFT BANNER -->
+<div class="draft-banner" id="draft-banner" style="display:none;">
+  <div class="draft-inner">
+    💾 มีข้อมูลที่บันทึกไว้ เมื่อ <strong id="draft-time"></strong>
+    <button onclick="clearDraft()">ล้างข้อมูล</button>
+  </div>
+</div>
+
+<div class="form-wrap" id="form-wrap">
+
+<!-- ══ SECTION 1: แบรนด์และตัวตน ══════════════════════════════ -->
+<div class="section-card active" id="sec1">
+  <div class="sec-head">
+    <div class="sec-num n1">1</div>
+    <div>
+      <h2>แบรนด์และตัวตน</h2>
+      <p>ข้อมูลพื้นฐานของธุรกิจ สไตล์ และสีแบรนด์</p>
+    </div>
+    <span class="phase-tag">ทุก Phase</span>
+  </div>
+  <div class="sec-body">
+
+    <!-- Phase Selector -->
+    <div class="fg">
+      <label>เฟสที่คุณได้ชำระแล้ว <span class="req">*</span>
+        <span class="hint">เลือกได้มากกว่า 1</span>
+      </label>
+      <div class="phase-select-grid">
+        <div class="phase-sel-card p1c" id="psel1" onclick="togglePhaseSelect(1)">
+          <div class="phase-sel-check" id="pchk1">✓</div>
+          <div class="phase-sel-icon">🌐</div>
+          <div class="phase-sel-name">Phase 1<br>Brand Presence</div>
+          <div class="phase-sel-price">฿25,000</div>
+        </div>
+        <div class="phase-sel-card p2c" id="psel2" onclick="togglePhaseSelect(2)">
+          <div class="phase-sel-check" id="pchk2">✓</div>
+          <div class="phase-sel-icon">📊</div>
+          <div class="phase-sel-name">Phase 2<br>Student Portal</div>
+          <div class="phase-sel-price">฿38,000</div>
+        </div>
+        <div class="phase-sel-card p3c" id="psel3" onclick="togglePhaseSelect(3)">
+          <div class="phase-sel-check" id="pchk3">✓</div>
+          <div class="phase-sel-icon">🤖</div>
+          <div class="phase-sel-name">Phase 3<br>AI Learning Hub</div>
+          <div class="phase-sel-price">฿42,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>ชื่อธุรกิจ (ภาษาไทย) <span class="req">*</span></label>
+        <input type="text" id="biz_th" placeholder="เช่น สถาบัน LIFE Academy" oninput="autoSave('biz_th',this.value)">
+      </div>
+      <div class="fg">
+        <label>ชื่อธุรกิจ (อังกฤษ) <span class="req">*</span></label>
+        <input type="text" id="biz_en" placeholder="เช่น LIFE Academy" oninput="autoSave('biz_en',this.value)">
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>Tagline / Slogan <span class="req">*</span>
+        <span class="hint">ประโยคสั้นที่อยากให้คนจำ</span>
+      </label>
+      <input type="text" id="tagline" placeholder="เช่น 14 ปี แห่งความสำเร็จ | เรียนได้ผล ด้วยครูมืออาชีพ" oninput="autoSave('tagline',this.value)">
+    </div>
+
+    <div class="fg">
+      <label>สีแบรนด์ที่ใช้ <span class="req">*</span>
+        <span class="hint">เลือกสีให้ใกล้เคียงที่สุด</span>
+      </label>
+      <div class="color-row">
+        <div class="color-item">
+          <input type="color" id="color1" value="#0f2557" onchange="autoSave('color1',this.value)">
+          <label>หลัก</label>
+        </div>
+        <div class="color-item">
+          <input type="color" id="color2" value="#f59e0b" onchange="autoSave('color2',this.value)">
+          <label>รอง</label>
+        </div>
+        <div class="color-item">
+          <input type="color" id="color3" value="#ffffff" onchange="autoSave('color3',this.value)">
+          <label>พื้นหลัง</label>
+        </div>
+        <div class="fg" style="flex:1;margin:0;">
+          <input type="text" id="color_note" placeholder="หมายเหตุสี เช่น น้ำเงินเข้ม+ทอง" oninput="autoSave('color_note',this.value)">
+        </div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>สไตล์เว็บที่ต้องการ <span class="req">*</span></label>
+      <div class="style-grid">
+        <div class="style-card" id="sty-modern" onclick="selectStyle('modern')">
+          <div class="style-icon">⚡</div>
+          <div class="style-name">Modern</div>
+          <div class="style-desc">สะอาด เรียบ ทันสมัย</div>
+        </div>
+        <div class="style-card" id="sty-classic" onclick="selectStyle('classic')">
+          <div class="style-icon">🏛️</div>
+          <div class="style-name">Classic</div>
+          <div class="style-desc">คลาสสิก น่าเชื่อถือ</div>
+        </div>
+        <div class="style-card" id="sty-playful" onclick="selectStyle('playful')">
+          <div class="style-icon">🎨</div>
+          <div class="style-name">Playful</div>
+          <div class="style-desc">สดใส สนุก สร้างสรรค์</div>
+        </div>
+        <div class="style-card" id="sty-minimal" onclick="selectStyle('minimal')">
+          <div class="style-icon">◻️</div>
+          <div class="style-name">Minimal</div>
+          <div class="style-desc">ห้วน ตรง เน้นเนื้อหา</div>
+        </div>
+        <div class="style-card" id="sty-premium" onclick="selectStyle('premium')">
+          <div class="style-icon">💎</div>
+          <div class="style-name">Premium</div>
+          <div class="style-desc">หรู มีระดับ exclusive</div>
+        </div>
+        <div class="style-card" id="sty-warm" onclick="selectStyle('warm')">
+          <div class="style-icon">🌿</div>
+          <div class="style-name">Warm</div>
+          <div class="style-desc">อบอุ่น ใกล้ชิด เป็นกันเอง</div>
+        </div>
+      </div>
+      <input type="hidden" id="web_style">
+    </div>
+
+    <div class="fg">
+      <label>เว็บไซต์ที่ชอบ (ใช้เป็น Reference)
+        <span class="hint">ชอบ Design หรือ Function อะไรก็ได้</span>
+      </label>
+      <div id="ref-list" class="dynamic-list">
+        <div class="dl-item">
+          <input type="url" placeholder="https://..." oninput="saveDynamic('ref-list')" class="ref-url">
+        </div>
+      </div>
+      <button class="add-item-btn" onclick="addRefItem()">+ เพิ่ม URL</button>
+    </div>
+
+    <div class="fg">
+      <label>Logo ไฟล์ (ถ้ามี)
+        <span class="hint">PNG / SVG พื้นโปร่งใส</span>
+      </label>
+      <div class="upload-zone" id="logo-zone" onclick="document.getElementById('logo-file').click()">
+        <div class="upload-icon">🖼️</div>
+        <div class="upload-label">คลิกเพื่ออัปโหลด Logo</div>
+        <div class="upload-hint">PNG, SVG, JPG — ไม่เกิน 5MB</div>
+        <div class="upload-preview-grid" id="logo-preview"></div>
+      </div>
+      <input type="file" id="logo-file" accept="image/*" style="display:none" onchange="previewFiles(this,'logo-preview','logo-zone')">
+    </div>
+
+    <div class="sec-nav">
+      <button class="btn-next" onclick="goSection(2)">ถัดไป: เนื้อหาหลัก →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: เนื้อหาหลัก ══════════════════════════════════ -->
+<div class="section-card" id="sec2">
+  <div class="sec-head">
+    <div class="sec-num n2">2</div>
+    <div>
+      <h2>เนื้อหาหลักของธุรกิจ</h2>
+      <p>เรื่องราว จุดเด่น และข้อมูลสินค้า/บริการ</p>
+    </div>
+    <span class="phase-tag">ทุก Phase</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="fg">
+      <label>เล่าเรื่องธุรกิจของคุณ <span class="req">*</span>
+        <span class="hint">3–5 ประโยค</span>
+      </label>
+      <textarea id="biz_story" rows="4" placeholder="เช่น LIFE Academy ก่อตั้งด้วยใจรักการสอน ด้วยประสบการณ์ 14 ปี เราช่วยนักเรียนกว่า 5,000 คน..." oninput="autoSave('biz_story',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>จุดเด่น / USP ที่ไม่มีคู่แข่ง <span class="req">*</span></label>
+      <textarea id="usp" rows="3" placeholder="เช่น ครูมืออาชีพที่คัดมาแล้ว ห้องเรียนไม่เกิน 10 คน มีรายงานผลส่งผู้ปกครองทุกเดือน" oninput="autoSave('usp',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>กลุ่มลูกค้าหลักคือใคร <span class="req">*</span>
+        <span class="hint">อายุ อาชีพ ปัญหาที่แก้ให้ได้</span>
+      </label>
+      <textarea id="target" rows="3" placeholder="เช่น นักเรียนชั้น ป.1–ม.6 อายุ 7–18 ปี และผู้ปกครองในหาดใหญ่ที่ต้องการเพิ่มคะแนนลูก" oninput="autoSave('target',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>ระดับราคาสินค้า/บริการ</label>
+      <div class="radio-group">
+        <label class="radio-opt" onclick="selectRadio(this,'price_range','budget')">
+          <input type="radio" name="price_range" value="budget"> 💚 Budget (ราคาย่อมเยา)
+        </label>
+        <label class="radio-opt" onclick="selectRadio(this,'price_range','mid')">
+          <input type="radio" name="price_range" value="mid"> 🔵 Mid-range (กลาง)
+        </label>
+        <label class="radio-opt" onclick="selectRadio(this,'price_range','premium')">
+          <input type="radio" name="price_range" value="premium"> 💎 Premium (พรีเมียม)
+        </label>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>รายการสินค้า/บริการ <span class="req">*</span>
+        <span class="hint">ใส่ให้ครบ — จะนำไปแสดงบนเว็บ</span>
+      </label>
+      <div id="services-list" class="dynamic-list">
+        <div class="dl-item">
+          <input type="text" placeholder="ชื่อบริการ เช่น ติว ม.ปลาย คณิตศาสตร์ — ฿X,XXX/เดือน" oninput="saveDynamic('services-list')">
+          <button class="dl-remove" onclick="removeDlItem(this)">×</button>
+        </div>
+      </div>
+      <button class="add-item-btn" onclick="addDlItem('services-list','ชื่อบริการ/สินค้า — รายละเอียด — ราคา')">+ เพิ่มบริการ</button>
+    </div>
+
+    <div class="fg">
+      <label>ผลงาน / ลูกค้าเก่าที่อ้างอิงได้
+        <span class="hint">ชื่อ หรือรูปผลงาน</span>
+      </label>
+      <textarea id="portfolio" rows="3" placeholder="เช่น นักเรียน 500 คนสอบติด ม.อ. ปี 2568 / ผู้ปกครองรีวิว 5 ดาวกว่า 200 รีวิว" oninput="autoSave('portfolio',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>รูปภาพประกอบ (ถ้ามี)
+        <span class="hint">รูปร้าน ทีมงาน ผลงาน สินค้า</span>
+      </label>
+      <div class="upload-zone" id="img-zone" onclick="document.getElementById('img-files').click()">
+        <div class="upload-icon">📸</div>
+        <div class="upload-label">คลิกเพื่ออัปโหลดรูป</div>
+        <div class="upload-hint">JPG, PNG — เลือกได้หลายรูป</div>
+        <div class="upload-preview-grid" id="img-preview"></div>
+      </div>
+      <input type="file" id="img-files" accept="image/*" multiple style="display:none" onchange="previewFiles(this,'img-preview','img-zone')">
+    </div>
+
+    <div class="sec-nav">
+      <button class="btn-prev" onclick="goSection(1)">← ย้อนกลับ</button>
+      <button class="btn-next" onclick="goSection(3)">ถัดไป: ระบบ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 3: ระบบและฟีเจอร์ ═══════════════════════════════ -->
+<div class="section-card" id="sec3">
+  <div class="sec-head">
+    <div class="sec-num n3">3</div>
+    <div>
+      <h2>ระบบและฟีเจอร์</h2>
+      <p>ความต้องการด้าน Backend และการทำงานของระบบ</p>
+    </div>
+    <span class="phase-tag" id="phase-tag-3">Phase 2–3</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="fg">
+      <label>ต้องการระบบ Login หรือไม่?</label>
+      <div class="check-group">
+        <label class="check-opt" onclick="toggleCheck(this,'login_type','customer')">
+          <input type="checkbox"> 👤 ลูกค้า/นักเรียน
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'login_type','admin')">
+          <input type="checkbox"> 🛠️ Admin/เจ้าของ
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'login_type','teacher')">
+          <input type="checkbox"> 👩‍🏫 ครูผู้สอน
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'login_type','parent')">
+          <input type="checkbox"> 👨‍👩‍👧 ผู้ปกครอง
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'login_type','none')">
+          <input type="checkbox"> ❌ ไม่ต้องการ
+        </label>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>ข้อมูลที่ต้องเก็บในระบบ
+        <span class="hint">เช่น ชื่อ, วันนัด, ผลการเรียน</span>
+      </label>
+      <div id="data-list" class="dynamic-list">
+        <div class="dl-item">
+          <input type="text" placeholder="เช่น ข้อมูลนักเรียน (ชื่อ, ระดับ, วิชา)" oninput="saveDynamic('data-list')">
+          <button class="dl-remove" onclick="removeDlItem(this)">×</button>
+        </div>
+      </div>
+      <button class="add-item-btn" onclick="addDlItem('data-list','ประเภทข้อมูลที่ต้องเก็บ')">+ เพิ่มข้อมูล</button>
+    </div>
+
+    <div class="fg">
+      <label>การแจ้งเตือนที่ต้องการ</label>
+      <div class="check-group">
+        <label class="check-opt" onclick="toggleCheck(this,'notify','email')">
+          <input type="checkbox"> 📧 Email
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'notify','line')">
+          <input type="checkbox"> 💬 LINE OA
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'notify','sms')">
+          <input type="checkbox"> 📱 SMS
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'notify','none')">
+          <input type="checkbox"> ❌ ไม่ต้องการ
+        </label>
+      </div>
+    </div>
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>ต้องการระบบ Booking?</label>
+        <div class="radio-group">
+          <label class="radio-opt" onclick="selectRadio(this,'need_booking','yes')">
+            <input type="radio" name="need_booking" value="yes"> ✅ ใช่
+          </label>
+          <label class="radio-opt" onclick="selectRadio(this,'need_booking','no')">
+            <input type="radio" name="need_booking" value="no"> ❌ ไม่ใช่
+          </label>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Dashboard ที่อยากเห็น</label>
+        <input type="text" id="dashboard_want" placeholder="เช่น จำนวนนักเรียน, ตารางเรียน, รายได้" oninput="autoSave('dashboard_want',this.value)">
+      </div>
+    </div>
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>LINE OA ที่ใช้อยู่</label>
+        <input type="text" id="line_oa" placeholder="@yourlineoa" oninput="autoSave('line_oa',this.value)">
+      </div>
+      <div class="fg">
+        <label>Facebook Page URL</label>
+        <input type="url" id="fb_page" placeholder="https://facebook.com/..." oninput="autoSave('fb_page',this.value)">
+      </div>
+    </div>
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>Google Business URL</label>
+        <input type="url" id="google_biz" placeholder="https://maps.google.com/..." oninput="autoSave('google_biz',this.value)">
+      </div>
+      <div class="fg">
+        <label>ระบบอื่นที่ใช้อยู่</label>
+        <input type="text" id="other_systems" placeholder="เช่น Shopify, Wongnai, Grab" oninput="autoSave('other_systems',this.value)">
+      </div>
+    </div>
+
+    <div class="sec-nav">
+      <button class="btn-prev" onclick="goSection(2)">← ย้อนกลับ</button>
+      <button class="btn-next" onclick="goSection(4)">ถัดไป: สื่อ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 4: เนื้อหา + สื่อ ═══════════════════════════════ -->
+<div class="section-card" id="sec4">
+  <div class="sec-head">
+    <div class="sec-num n4">4</div>
+    <div>
+      <h2>เนื้อหาและสื่อบนเว็บ</h2>
+      <p>ข้อความ ช่องทางติดต่อ และ FAQ</p>
+    </div>
+    <span class="phase-tag">ทุก Phase</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="fg">
+      <label>ข้อความหน้าแรก (Hero) <span class="req">*</span>
+        <span class="hint">หัวข้อใหญ่ที่คนเห็นแรก</span>
+      </label>
+      <input type="text" id="hero_text" placeholder="เช่น เรียนให้ได้ผล ด้วยครูมืออาชีพที่คุณไว้ใจ" oninput="autoSave('hero_text',this.value)">
+    </div>
+
+    <div class="fg">
+      <label>ข้อความรองใต้ Hero
+        <span class="hint">1–2 ประโยคอธิบาย</span>
+      </label>
+      <textarea id="hero_sub" rows="2" placeholder="เช่น LIFE Academy สถาบันติวเตอร์ชั้นนำ 14 ปี รองรับทั้งออนไซต์และออนไลน์" oninput="autoSave('hero_sub',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>เรื่องราว About Us <span class="req">*</span>
+        <span class="hint">ความเป็นมา ความเชื่อ วิสัยทัศน์</span>
+      </label>
+      <textarea id="about_text" rows="4" placeholder="เช่น เราเชื่อว่าทุกคนเรียนรู้ได้ ด้วยวิธีที่เหมาะกับตัวเอง..." oninput="autoSave('about_text',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>หมวดหมู่สินค้า/บริการ
+        <span class="hint">แบ่งกลุ่มสำหรับเมนูเว็บ</span>
+      </label>
+      <div id="category-list" class="dynamic-list">
+        <div class="dl-item">
+          <input type="text" placeholder="เช่น ติวประถม | ติวมัธยมต้น | ติวมัธยมปลาย" oninput="saveDynamic('category-list')">
+          <button class="dl-remove" onclick="removeDlItem(this)">×</button>
+        </div>
+      </div>
+      <button class="add-item-btn" onclick="addDlItem('category-list','ชื่อหมวดหมู่')">+ เพิ่มหมวดหมู่</button>
+    </div>
+
+    <div class="fg">
+      <label>FAQ — คำถามที่ลูกค้าถามบ่อย
+        <span class="hint">ใส่อย่างน้อย 3 ข้อ</span>
+      </label>
+      <div id="faq-container">
+        <div class="faq-item">
+          <label>คำถามที่ 1</label>
+          <input type="text" placeholder="คำถาม เช่น เรียนที่นี่ต่างจากที่อื่นยังไง?" oninput="saveFaq()">
+          <input type="text" placeholder="คำตอบ" oninput="saveFaq()">
+        </div>
+        <div class="faq-item">
+          <label>คำถามที่ 2</label>
+          <input type="text" placeholder="คำถาม" oninput="saveFaq()">
+          <input type="text" placeholder="คำตอบ" oninput="saveFaq()">
+        </div>
+        <div class="faq-item">
+          <label>คำถามที่ 3</label>
+          <input type="text" placeholder="คำถาม" oninput="saveFaq()">
+          <input type="text" placeholder="คำตอบ" oninput="saveFaq()">
+        </div>
+      </div>
+      <button class="add-item-btn" onclick="addFaqItem()">+ เพิ่ม FAQ</button>
+    </div>
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
+        <input type="tel" id="contact_phone" placeholder="0X-XXXX-XXXX" oninput="autoSave('contact_phone',this.value)">
+      </div>
+      <div class="fg">
+        <label>LINE สำหรับติดต่อ <span class="req">*</span></label>
+        <input type="text" id="contact_line" placeholder="@yourline หรือ LINE ID" oninput="autoSave('contact_line',this.value)">
+      </div>
+    </div>
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>อีเมลสำหรับรับงาน <span class="req">*</span></label>
+        <input type="email" id="contact_email" placeholder="info@yourbusiness.com" oninput="autoSave('contact_email',this.value)">
+      </div>
+      <div class="fg">
+        <label>เวลาทำการ</label>
+        <input type="text" id="working_hours" placeholder="จ–ศ 14:00–20:00, ส–อา 9:00–18:00" oninput="autoSave('working_hours',this.value)">
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>ที่อยู่ / Google Maps Link</label>
+      <input type="text" id="address" placeholder="ที่อยู่เต็ม หรือ https://maps.google.com/..." oninput="autoSave('address',this.value)">
+    </div>
+
+    <div class="sec-nav">
+      <button class="btn-prev" onclick="goSection(3)">← ย้อนกลับ</button>
+      <button class="btn-next" onclick="goSection(5)">ถัดไป: เทคนิค →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 5: เทคนิค ════════════════════════════════════════ -->
+<div class="section-card" id="sec5">
+  <div class="sec-head">
+    <div class="sec-num n5">5</div>
+    <div>
+      <h2>ข้อมูลเทคนิค</h2>
+      <p>Domain, ระบบที่มีอยู่ และความต้องการพิเศษ</p>
+    </div>
+    <span class="phase-tag" id="phase-tag-5">Phase 2–3</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>Domain ที่ต้องการ
+          <span class="hint">ถ้ายังไม่มีเราช่วยจอง</span>
+        </label>
+        <input type="text" id="domain" placeholder="เช่น lifeacademy.co.th" oninput="autoSave('domain',this.value)">
+      </div>
+      <div class="fg">
+        <label>ต้องการ Email @domain?</label>
+        <div class="radio-group">
+          <label class="radio-opt" onclick="selectRadio(this,'need_email','yes')">
+            <input type="radio" name="need_email" value="yes"> ✅ ใช่
+          </label>
+          <label class="radio-opt" onclick="selectRadio(this,'need_email','no')">
+            <input type="radio" name="need_email" value="no"> ❌ ไม่ใช่
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>มีระบบเดิมที่ต้องย้ายข้อมูล?</label>
+      <div class="radio-group" style="margin-bottom:10px;">
+        <label class="radio-opt" onclick="selectRadio(this,'has_old_system','yes');document.getElementById('old-sys-detail').style.display='block'">
+          <input type="radio" name="has_old_system" value="yes"> ✅ มี — ต้องย้าย
+        </label>
+        <label class="radio-opt" onclick="selectRadio(this,'has_old_system','no');document.getElementById('old-sys-detail').style.display='none'">
+          <input type="radio" name="has_old_system" value="no"> ❌ ไม่มี
+        </label>
+      </div>
+      <textarea id="old_system_detail" style="display:none" id="old-sys-detail" rows="2"
+        placeholder="อธิบายระบบเดิม เช่น มีฐานข้อมูลนักเรียน 500 คน ใน Google Sheets" oninput="autoSave('old_system_detail',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>ภาษาบนเว็บ</label>
+      <div class="radio-group">
+        <label class="radio-opt" onclick="selectRadio(this,'web_lang','th')">
+          <input type="radio" name="web_lang" value="th"> 🇹🇭 ไทยอย่างเดียว
+        </label>
+        <label class="radio-opt" onclick="selectRadio(this,'web_lang','th_en')">
+          <input type="radio" name="web_lang" value="th_en"> 🌐 ไทย + อังกฤษ
+        </label>
+        <label class="radio-opt" onclick="selectRadio(this,'web_lang','other')">
+          <input type="radio" name="web_lang" value="other"> ✏️ อื่นๆ
+        </label>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>ต้องการระบบชำระเงิน Online?</label>
+      <div class="check-group">
+        <label class="check-opt" onclick="toggleCheck(this,'payment_type','promptpay')">
+          <input type="checkbox"> 📱 PromptPay
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'payment_type','card')">
+          <input type="checkbox"> 💳 บัตรเครดิต
+        </label>
+        <label class="check-opt" onclick="toggleCheck(this,'payment_type','none')">
+          <input type="checkbox"> ❌ ไม่ต้องการ
+        </label>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>การดูแลระบบหลังส่งมอบ</label>
+      <div class="radio-group">
+        <label class="radio-opt" onclick="selectRadio(this,'manage_pref','self')">
+          <input type="radio" name="manage_pref" value="self"> 💪 ดูแลเว็บเอง
+        </label>
+        <label class="radio-opt" onclick="selectRadio(this,'manage_pref','team')">
+          <input type="radio" name="manage_pref" value="team"> 🤝 ให้ทีมงาน CAP Vision ช่วยดูแล
+        </label>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>ข้อมูลเพิ่มเติมด้านเทคนิค</label>
+      <textarea id="tech_notes" rows="2" placeholder="เช่น ต้องการ Multi-language, API เชื่อมต่อกับระบบอื่น, ฯลฯ" oninput="autoSave('tech_notes',this.value)"></textarea>
+    </div>
+
+    <div class="sec-nav">
+      <button class="btn-prev" onclick="goSection(4)">← ย้อนกลับ</button>
+      <button class="btn-next" onclick="goSection(6)">ถัดไป: Timeline →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 6: Timeline ══════════════════════════════════════ -->
+<div class="section-card" id="sec6">
+  <div class="sec-head">
+    <div class="sec-num n6">6</div>
+    <div>
+      <h2>Timeline และความคาดหวัง</h2>
+      <p>กำหนดการ เป้าหมาย และคำถามปลายเปิด</p>
+    </div>
+    <span class="phase-tag">ทุก Phase</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="fg-row">
+      <div class="fg">
+        <label>วันที่ต้องการเปิดตัวเว็บ <span class="req">*</span></label>
+        <input type="date" id="launch_date" onchange="autoSave('launch_date',this.value)">
+      </div>
+      <div class="fg">
+        <label>ความพร้อมของ Content</label>
+        <div class="radio-group" style="flex-direction:column;gap:6px;">
+          <label class="radio-opt" onclick="selectRadio(this,'content_ready','100')">
+            <input type="radio" name="content_ready" value="100"> ✅ พร้อม 100%
+          </label>
+          <label class="radio-opt" onclick="selectRadio(this,'content_ready','50')">
+            <input type="radio" name="content_ready" value="50"> 🔄 มีบางส่วน
+          </label>
+          <label class="radio-opt" onclick="selectRadio(this,'content_ready','0')">
+            <input type="radio" name="content_ready" value="0"> ❌ ยังไม่มีเลย
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>มีงาน/แคมเปญที่ต้องเปิดทัน?</label>
+      <input type="text" id="event_deadline" placeholder="เช่น เปิดเทอม มิ.ย. 2568 / งานแนะแนว มี.ค. 2569" oninput="autoSave('event_deadline',this.value)">
+    </div>
+
+    <div class="fg">
+      <label>ความคาดหวังสูงสุดจากเว็บนี้ <span class="req">*</span>
+        <span class="hint">ใน 6 เดือนข้างหน้า</span>
+      </label>
+      <textarea id="expectation" rows="3" placeholder="เช่น ได้นักเรียนใหม่ 50 คนต่อเดือน / ลดงาน Admin ลง 50% / ผู้ปกครองติดตามผลลูกเองได้" oninput="autoSave('expectation',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>กังวลอะไรมากที่สุดเกี่ยวกับโปรเจกต์นี้?</label>
+      <textarea id="concerns" rows="3" placeholder="เช่น กลัวสวยแต่ไม่มีคนเข้า / กังวลเรื่องค่าดูแลระบบในอนาคต / ไม่แน่ใจว่าจะดูแลเว็บเองได้" oninput="autoSave('concerns',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>คำถามที่ยังค้างใจ (อะไรก็ได้)</label>
+      <textarea id="open_questions" rows="3" placeholder="ถามได้ทุกอย่าง! เช่น โดเมน .co.th ดีกว่า .com ไหม? หรือ ทีมงานจะ support นานแค่ไหน?" oninput="autoSave('open_questions',this.value)"></textarea>
+    </div>
+
+    <div class="fg">
+      <label>ข้อมูลเพิ่มเติมใดๆ ที่อยากให้ทีมรู้</label>
+      <textarea id="additional_info" rows="3" placeholder="เช่น มีไฟล์ Content พร้อมส่ง / มีนักออกแบบ Logo อยู่แล้ว / ต้องการ Deploy บน Server ของตัวเอง" oninput="autoSave('additional_info',this.value)"></textarea>
+    </div>
+
+    <!-- Confirm start -->
+    <div style="background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:14px;padding:20px;margin-top:8px;">
+      <div style="font-size:14px;font-weight:700;color:var(--green);font-family:var(--tu);margin-bottom:12px;">
+        ✅ ยืนยันการเริ่มพัฒนา
+      </div>
+      <label class="check-row" style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;cursor:pointer;">
+        <input type="checkbox" id="cb-confirm1" style="width:18px;height:18px;accent-color:var(--navy);flex-shrink:0;margin-top:2px;">
+        <span style="font-size:13px;">ข้าพเจ้ายืนยันว่าได้ชำระค่าบริการแล้ว และพร้อมเริ่มโปรเจกต์</span>
+      </label>
+      <label class="check-row" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="cb-confirm2" style="width:18px;height:18px;accent-color:var(--navy);flex-shrink:0;margin-top:2px;">
+        <span style="font-size:13px;">ข้าพเจ้ายืนยันว่าข้อมูลที่กรอกทั้งหมดถูกต้อง และยินยอมให้ทีม CAP Vision ติดต่อกลับ</span>
+      </label>
+    </div>
+
+    <div class="sec-nav">
+      <button class="btn-prev" onclick="goSection(5)">← ย้อนกลับ</button>
+      <button class="btn-submit" id="submit-btn" onclick="submitOnboarding()">
+        🚀 ส่งข้อมูลเริ่มโปรเจกต์!
+      </button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /form-wrap -->
+
+<!-- SUCCESS SCREEN -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">🚀</div>
+  <h2 class="success-title">ได้รับข้อมูลแล้ว!</h2>
+  <p class="success-sub">ขอบคุณที่ไว้วางใจ CAP Vision Institute<br>
+  ทีมงานจะรีวิวข้อมูลและติดต่อนัด Kickoff Meeting ภายใน 24 ชั่วโมงครับ</p>
+
+  <div class="summary-card">
+    <div class="summary-label">เลขที่โปรเจกต์</div>
+    <div class="summary-id" id="s-project-id">OB-2569-XXXX</div>
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-lbl">ชื่อธุรกิจ</div><div class="sg-val" id="s-biz">—</div></div>
+      <div class="sg-item"><div class="sg-lbl">Phase ที่ดำเนินการ</div><div class="sg-val" id="s-phases">—</div></div>
+      <div class="sg-item"><div class="sg-lbl">สไตล์เว็บ</div><div class="sg-val" id="s-style">—</div></div>
+      <div class="sg-item"><div class="sg-lbl">เปิดตัวเป้าหมาย</div><div class="sg-val" id="s-launch">—</div></div>
+    </div>
+  </div>
+
+  <div class="next-box">
+    <h3>ขั้นตอนต่อไป</h3>
+    <ul class="next-list">
+      <li><div class="step-dot">1</div><span>ทีมงานรีวิวข้อมูล Onboarding Form ของคุณ</span></li>
+      <li><div class="step-dot">2</div><span>ได้รับ Project Brief PDF ทางอีเมล ภายใน 24 ชม.</span></li>
+      <li><div class="step-dot">3</div><span>นัดประชุม Kickoff Meeting — ออกแบบ Wireframe ร่วมกัน</span></li>
+      <li><div class="step-dot">4</div><span>เริ่มพัฒนาจริง! ติดตาม Progress ผ่าน LINE Group</span></li>
+    </ul>
+  </div>
+
+  <div class="line-cta">
+    <img src="data:image/jpeg;base64,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" alt="LINE QR @denmasterfa" class="line-qr">
+    <div class="line-text">
+      <strong>📲 ติดตามโปรเจกต์ที่ LINE</strong>
+      <span>สแกน QR หรือ Add <a href="https://lin.ee/X9Ch25o" target="_blank">@denmasterfa</a><br>
+      ครูเด่น จะนัดเวลา Kickoff ผ่าน LINE ครับ</span>
+    </div>
+  </div>
+
+  <div class="action-btns">
+    <a href="https://dencapvision.github.io/web-Life-Academy-Demo/" target="_blank" class="action-btn btn-dark">
+      ← ดู Demo อีกครั้ง
+    </a>
+    <a href="https://lin.ee/X9Ch25o" target="_blank" class="action-btn" style="background:#06c755;color:#fff;">
+      💬 LINE @denmasterfa
+    </a>
+  </div>
+</div>
+
+<!-- SAVE INDICATOR -->
+<div class="save-indicator" id="save-indicator">💾 บันทึกแล้ว</div>
+
+<script>
+// ══ CONFIG ════════════════════════════════════════════════════
+const LINE_TOKEN = '5WNFciKSWla7fY2HxhJmV9R6Mu/9s01x6f5DpwF95rAgmeFxxVduN/0d57ZSDVVitdXPp0xd8BeR6SNgWy4/4v5jbWUNK9nikwEnOQOCZowRDD9lqN2XyuIKYCAjW2yO1dLUWinSm4VYSpe1WbXWMwdB04t89/1O/w1cDnyilFU=';
+const LINE_UID   = 'Ue652c6a963399b81a811eb04fe88c123';
+const DRAFT_KEY  = 'cap_onboarding_draft';
+let currentSection = 1;
+let selectedPhases = new Set();
+let selectedStyle  = '';
+
+// ══ PHASE SELECTOR ════════════════════════════════════════════
+function togglePhaseSelect(n) {
+  const card = document.getElementById('psel'+n);
+  if (selectedPhases.has(n)) {
+    selectedPhases.delete(n);
+    card.classList.remove('sel');
+  } else {
+    selectedPhases.add(n);
+    card.classList.add('sel');
+  }
+  autoSave('phases', [...selectedPhases].join(','));
+  updatePhaseBadges();
+}
+
+function updatePhaseBadges() {
+  const c = document.getElementById('phase-badges');
+  c.innerHTML = '';
+  if (selectedPhases.size === 0) {
+    c.innerHTML = '<span class="phase-badge">ยังไม่ได้เลือก Phase</span>';
+    return;
+  }
+  const nm = {1:'Phase 1 — Brand',2:'Phase 2 — Portal',3:'Phase 3 — AI Hub'};
+  const cl = {1:'p1',2:'p2',3:'p3'};
+  [...selectedPhases].sort().forEach(n => {
+    c.innerHTML += `<span class="phase-badge ${cl[n]}">${nm[n]}</span>`;
+  });
+}
+
+// ══ STYLE SELECTOR ════════════════════════════════════════════
+function selectStyle(s) {
+  document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('sty-'+s).classList.add('selected');
+  selectedStyle = s;
+  document.getElementById('web_style').value = s;
+  autoSave('web_style', s);
+}
+
+// ══ RADIO / CHECKBOX ══════════════════════════════════════════
+function selectRadio(el, key, val) {
+  el.closest('.radio-group').querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  autoSave(key, val);
+}
+function toggleCheck(el, key, val) {
+  el.classList.toggle('selected');
+  const all = [...el.closest('.check-group').querySelectorAll('.check-opt.selected')]
+    .map(o => o.querySelector('input').value).join(',');
+  autoSave(key, all);
+}
+
+// ══ DYNAMIC LIST ══════════════════════════════════════════════
+function addDlItem(listId, placeholder) {
+  const list = document.getElementById(listId);
+  const div = document.createElement('div');
+  div.className = 'dl-item';
+  div.innerHTML = `<input type="text" placeholder="${placeholder}" oninput="saveDynamic('${listId}')">
+    <button class="dl-remove" onclick="removeDlItem(this)">×</button>`;
+  list.appendChild(div);
+}
+function removeDlItem(btn) {
+  const item = btn.closest('.dl-item');
+  const list = item.parentElement;
+  if (list.querySelectorAll('.dl-item').length > 1) item.remove();
+  else item.querySelector('input').value = '';
+}
+function addRefItem() {
+  const list = document.getElementById('ref-list');
+  const div = document.createElement('div');
+  div.className = 'dl-item';
+  div.innerHTML = `<input type="url" placeholder="https://..." oninput="saveDynamic('ref-list')" class="ref-url">
+    <button class="dl-remove" onclick="removeDlItem(this)">×</button>`;
+  list.appendChild(div);
+}
+function saveDynamic(listId) {
+  const vals = [...document.querySelectorAll(`#${listId} input`)].map(i=>i.value).join('|');
+  autoSave(listId+'_data', vals);
+}
+
+// ══ FAQ ═══════════════════════════════════════════════════════
+let faqCount = 3;
+function addFaqItem() {
+  faqCount++;
+  const c = document.getElementById('faq-container');
+  const div = document.createElement('div');
+  div.className = 'faq-item';
+  div.innerHTML = `<label>คำถามที่ ${faqCount}</label>
+    <input type="text" placeholder="คำถาม" oninput="saveFaq()">
+    <input type="text" placeholder="คำตอบ" oninput="saveFaq()">`;
+  c.appendChild(div);
+}
+function saveFaq() {
+  const items = [...document.querySelectorAll('#faq-container .faq-item')];
+  const data = items.map(item => {
+    const ins = item.querySelectorAll('input');
+    return ins[0].value + ':' + ins[1].value;
+  }).join('||');
+  autoSave('faq_data', data);
+}
+
+// ══ FILE UPLOAD ═══════════════════════════════════════════════
+function previewFiles(input, previewId, zoneId) {
+  const preview = document.getElementById(previewId);
+  const zone = document.getElementById(zoneId);
+  preview.innerHTML = '';
+  [...input.files].forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.className = 'preview-thumb';
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+  if (input.files.length > 0) {
+    zone.classList.add('has-file');
+    zone.querySelector('.upload-label').textContent = `✅ ${input.files.length} ไฟล์เลือกแล้ว`;
+  }
+}
+
+// ══ AUTO SAVE ═════════════════════════════════════════════════
+let saveTimer;
+function autoSave(key, val) {
+  const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}');
+  draft[key] = val;
+  draft.lastSaved = new Date().toISOString();
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  clearTimeout(saveTimer);
+  const ind = document.getElementById('save-indicator');
+  ind.classList.add('show');
+  saveTimer = setTimeout(() => ind.classList.remove('show'), 2000);
+}
+function loadDraft() {
+  const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}');
+  if (!draft.lastSaved) return;
+  const dt = new Date(draft.lastSaved);
+  document.getElementById('draft-banner').style.display = 'block';
+  document.getElementById('draft-time').textContent =
+    dt.toLocaleDateString('th-TH',{day:'2-digit',month:'short'}) + ' ' +
+    dt.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+  Object.keys(draft).forEach(k => {
+    const el = document.getElementById(k);
+    if (el && el.tagName !== 'INPUT' || (el && el.type !== 'color')) {
+      if (el) el.value = draft[k];
+    }
+  });
+  // Restore phases
+  if (draft.phases) {
+    draft.phases.split(',').filter(Boolean).forEach(n => {
+      const ni = parseInt(n);
+      if (ni) { selectedPhases.add(ni); document.getElementById('psel'+ni)?.classList.add('sel'); }
+    });
+    updatePhaseBadges();
+  }
+  // Restore style
+  if (draft.web_style) selectStyle(draft.web_style);
+}
+function clearDraft() {
+  if (confirm('ล้างข้อมูลที่บันทึกไว้ทั้งหมด?')) {
+    localStorage.removeItem(DRAFT_KEY);
+    document.getElementById('draft-banner').style.display = 'none';
+    location.reload();
+  }
+}
+
+// ══ SECTION NAVIGATION ════════════════════════════════════════
+function goSection(n) {
+  document.querySelectorAll('.section-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach((t,i) => {
+    t.classList.remove('active');
+    if (i+1 < n) t.classList.add('done');
+    else if (i+1 === n) { t.classList.add('active'); t.classList.remove('done'); }
+    else t.classList.remove('done');
+  });
+  document.getElementById('sec'+n).classList.add('active');
+  document.getElementById('progress-bar').style.width = (n/6*100)+'%';
+  currentSection = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══ LINE FLEX NOTIFY ══════════════════════════════════════════
+async function sendLineOnboardingNotify(data) {
+  const phases = data.phases || 'ไม่ระบุ';
+  const flex = {
+    type: 'flex', altText: '📋 Onboarding Form — ' + data.biz,
+    contents: {
+      type: 'bubble', size: 'kilo',
+      header: {
+        type: 'box', layout: 'vertical', backgroundColor: '#059669', paddingAll: '16px',
+        contents: [
+          { type: 'text', text: '📋 Onboarding Form ใหม่', color: '#ffffff', size: 'xs', weight: 'bold' },
+          { type: 'text', text: data.biz || '—', color: '#ffffff', size: 'xl', weight: 'bold', margin: 'sm' },
+          { type: 'text', text: data.projectId, color: 'rgba(255,255,255,0.55)', size: 'xs' }
+        ]
+      },
+      body: {
+        type: 'box', layout: 'vertical', paddingAll: '16px', spacing: 'sm',
+        contents: [
+          buildRow('🎯', 'Phase', phases),
+          buildRow('🎨', 'สไตล์', data.style || '—'),
+          buildRow('💬', 'LINE', data.lineContact || '—'),
+          buildRow('📅', 'เปิดตัว', data.launchDate || '—'),
+          buildRow('✉️', 'Email', data.email || '—')
+        ]
+      },
+      footer: {
+        type: 'box', layout: 'vertical', paddingAll: '12px',
+        contents: [{
+          type: 'button', style: 'primary', color: '#059669', height: 'sm',
+          action: { type: 'uri', label: '📞 ติดต่อลูกค้า', uri: 'https://lin.ee/X9Ch25o' }
+        }]
+      }
+    }
+  };
+  try {
+    await fetch('https://api.line.me/v2/bot/message/push', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+LINE_TOKEN },
+      body: JSON.stringify({ to: LINE_UID, messages: [flex] })
+    });
+  } catch(e) { console.log('LINE notify:', e.message); }
+}
+
+function buildRow(icon, label, value) {
+  return {
+    type: 'box', layout: 'horizontal', spacing: 'md', paddingTop: '3px', paddingBottom: '3px',
+    contents: [
+      { type: 'text', text: icon+' '+label, color: '#64748b', size: 'xs', flex: 2 },
+      { type: 'text', text: String(value), color: '#1e293b', size: 'xs', flex: 3, align: 'end', weight: 'bold', wrap: true }
+    ]
+  };
+}
+
+// ══ SUBMIT ════════════════════════════════════════════════════
+function submitOnboarding() {
+  if (!document.getElementById('cb-confirm1').checked || !document.getElementById('cb-confirm2').checked) {
+    alert('กรุณายืนยันการเริ่มโปรเจกต์ทั้ง 2 ข้อก่อนส่งข้อมูลครับ');
+    return;
+  }
+  const biz = document.getElementById('biz_th').value || document.getElementById('biz_en').value || '—';
+  if (!biz.trim() || biz === '—') {
+    alert('กรุณากรอกชื่อธุรกิจก่อนครับ (Section 1)');
+    goSection(1); return;
+  }
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ กำลังส่งข้อมูล...';
+
+  setTimeout(() => {
+    const yr = new Date().getFullYear() + 543;
+    const pid = 'OB-'+yr+'-'+Math.floor(1000+Math.random()*9000);
+    const phasesArr = [...selectedPhases].sort();
+    const phaseNames = {1:'Phase 1',2:'Phase 2',3:'Phase 3'};
+    const phasesStr = phasesArr.map(n=>phaseNames[n]).join(' + ') || 'ไม่ระบุ';
+
+    document.getElementById('s-project-id').textContent = pid;
+    document.getElementById('s-biz').textContent = biz;
+    document.getElementById('s-phases').textContent = phasesStr;
+    document.getElementById('s-style').textContent = selectedStyle || '—';
+    document.getElementById('s-launch').textContent = document.getElementById('launch_date').value || '—';
+
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('success-screen').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+
+    sendLineOnboardingNotify({
+      projectId: pid,
+      biz,
+      phases: phasesStr,
+      style: selectedStyle,
+      lineContact: document.getElementById('contact_line').value,
+      launchDate: document.getElementById('launch_date').value,
+      email: document.getElementById('contact_email').value
+    });
+
+    localStorage.removeItem(DRAFT_KEY);
+  }, 1600);
+}
+
+// ══ INIT ══════════════════════════════════════════════════════
+loadDraft();
+// Default: select Phase 1
+if (selectedPhases.size === 0) {
+  selectedPhases.add(1);
+  document.getElementById('psel1').classList.add('sel');
+  updatePhaseBadges();
+}
+</script>
+</body>
+</html>
