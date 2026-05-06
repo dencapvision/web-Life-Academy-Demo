@@ -1043,8 +1043,7 @@ input[type=color]{width:44px;height:44px;border-radius:10px;border:2px solid var
 
 <script>
 // ══ CONFIG ════════════════════════════════════════════════════
-const LINE_TOKEN = '5WNFciKSWla7fY2HxhJmV9R6Mu/9s01x6f5DpwF95rAgmeFxxVduN/0d57ZSDVVitdXPp0xd8BeR6SNgWy4/4v5jbWUNK9nikwEnOQOCZowRDD9lqN2XyuIKYCAjW2yO1dLUWinSm4VYSpe1WbXWMwdB04t89/1O/w1cDnyilFU=';
-const LINE_UID   = 'Ue652c6a963399b81a811eb04fe88c123';
+const API_URL    = 'https://nheppvjayzxlblkeanxs.supabase.co/functions/v1/line-notify';
 const DRAFT_KEY  = 'cap_onboarding_draft';
 let currentSection = 1;
 let selectedPhases = new Set();
@@ -1232,79 +1231,80 @@ function goSection(n) {
 
 // ══ LINE FLEX NOTIFY ══════════════════════════════════════════
 async function sendLineOnboardingNotify(data) {
-  const phases = data.phases || 'ไม่ระบุ';
-  const flex = {
-    type: 'flex', altText: '📋 Onboarding Form — ' + data.biz,
-    contents: {
-      type: 'bubble', size: 'kilo',
-      header: {
-        type: 'box', layout: 'vertical', backgroundColor: '#059669', paddingAll: '16px',
-        contents: [
-          { type: 'text', text: '📋 Onboarding Form ใหม่', color: '#ffffff', size: 'xs', weight: 'bold' },
-          { type: 'text', text: data.biz || '—', color: '#ffffff', size: 'xl', weight: 'bold', margin: 'sm' },
-          { type: 'text', text: data.projectId, color: 'rgba(255,255,255,0.55)', size: 'xs' }
-        ]
-      },
-      body: {
-        type: 'box', layout: 'vertical', paddingAll: '16px', spacing: 'sm',
-        contents: [
-          buildRow('🎯', 'Phase', phases),
-          buildRow('🎨', 'สไตล์', data.style || '—'),
-          buildRow('💬', 'LINE', data.lineContact || '—'),
-          buildRow('📅', 'เปิดตัว', data.launchDate || '—'),
-          buildRow('✉️', 'Email', data.email || '—')
-        ]
-      },
-      footer: {
-        type: 'box', layout: 'vertical', paddingAll: '12px',
-        contents: [{
-          type: 'button', style: 'primary', color: '#059669', height: 'sm',
-          action: { type: 'uri', label: '📞 ติดต่อลูกค้า', uri: 'https://lin.ee/X9Ch25o' }
-        }]
-      }
-    }
-  };
   try {
-    await fetch('https://api.line.me/v2/bot/message/push', {
+    const response = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+LINE_TOKEN },
-      body: JSON.stringify({ to: LINE_UID, messages: [flex] })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        project: 'ONBOARDING',
+        formType: 'Onboarding Brief',
+        data: data
+      })
     });
-  } catch(e) { console.log('LINE notify:', e.message); }
+    const resData = await response.json();
+    return resData.success;
+  } catch(e) { 
+    console.log('Submission error:', e.message);
+    return false;
+  }
 }
 
-function buildRow(icon, label, value) {
-  return {
-    type: 'box', layout: 'horizontal', spacing: 'md', paddingTop: '3px', paddingBottom: '3px',
-    contents: [
-      { type: 'text', text: icon+' '+label, color: '#64748b', size: 'xs', flex: 2 },
-      { type: 'text', text: String(value), color: '#1e293b', size: 'xs', flex: 3, align: 'end', weight: 'bold', wrap: true }
-    ]
-  };
-}
+// buildRow removed as Flex is now handled by Edge Function
 
 // ══ SUBMIT ════════════════════════════════════════════════════
-function submitOnboarding() {
+async function submitOnboarding() {
   if (!document.getElementById('cb-confirm1').checked || !document.getElementById('cb-confirm2').checked) {
     alert('กรุณายืนยันการเริ่มโปรเจกต์ทั้ง 2 ข้อก่อนส่งข้อมูลครับ');
     return;
   }
-  const biz = document.getElementById('biz_th').value || document.getElementById('biz_en').value || '—';
+  const bizTh = document.getElementById('biz_th').value;
+  const bizEn = document.getElementById('biz_en').value;
+  const biz = bizTh || bizEn || '—';
+  
   if (!biz.trim() || biz === '—') {
     alert('กรุณากรอกชื่อธุรกิจก่อนครับ (Section 1)');
     goSection(1); return;
   }
+
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
-  btn.innerHTML = '⏳ กำลังส่งข้อมูล...';
+  btn.innerHTML = '⏳ กำลังบันทึกข้อมูลและแจ้งเตือนทีมงาน...';
 
-  setTimeout(() => {
-    const yr = new Date().getFullYear() + 543;
-    const pid = 'OB-'+yr+'-'+Math.floor(1000+Math.random()*9000);
-    const phasesArr = [...selectedPhases].sort();
-    const phaseNames = {1:'Phase 1',2:'Phase 2',3:'Phase 3'};
-    const phasesStr = phasesArr.map(n=>phaseNames[n]).join(' + ') || 'ไม่ระบุ';
+  const yr = new Date().getFullYear() + 543;
+  const pid = 'OB-'+yr+'-'+Math.floor(1000+Math.random()*9000);
+  const phasesArr = [...selectedPhases].sort();
+  const phaseNames = {1:'Phase 1',2:'Phase 2',3:'Phase 3'};
+  const phasesStr = phasesArr.map(n=>phaseNames[n]).join(' + ') || 'ไม่ระบุ';
 
+  // Collect all data points
+  const formData = {
+    projectId: pid,
+    biz: bizTh,
+    biz_en: bizEn,
+    tagline: document.getElementById('tagline').value,
+    phases: phasesStr,
+    style: selectedStyle,
+    colors: `${document.getElementById('color1').value}, ${document.getElementById('color2').value}, ${document.getElementById('color3').value}`,
+    colorNote: document.getElementById('color_note').value,
+    bizStory: document.getElementById('biz_story').value,
+    usp: document.getElementById('usp').value,
+    target: document.getElementById('target').value,
+    email: document.getElementById('contact_email').value,
+    phone: document.getElementById('contact_phone').value,
+    lineContact: document.getElementById('contact_line').value,
+    launchDate: document.getElementById('launch_date').value,
+    expectation: document.getElementById('expectation').value,
+    // Add dynamic lists
+    references: document.getElementById('ref-list_data')?.value || '',
+    services: document.getElementById('services-list_data')?.value || '',
+    categories: document.getElementById('category-list_data')?.value || '',
+    faq: document.getElementById('faq_data')?.value || '',
+    timestamp: new Date().toISOString()
+  };
+
+  const success = await sendLineOnboardingNotify(formData);
+
+  if (success) {
     document.getElementById('s-project-id').textContent = pid;
     document.getElementById('s-biz').textContent = biz;
     document.getElementById('s-phases').textContent = phasesStr;
@@ -1314,19 +1314,12 @@ function submitOnboarding() {
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success-screen').classList.add('show');
     window.scrollTo({top:0,behavior:'smooth'});
-
-    sendLineOnboardingNotify({
-      projectId: pid,
-      biz,
-      phases: phasesStr,
-      style: selectedStyle,
-      lineContact: document.getElementById('contact_line').value,
-      launchDate: document.getElementById('launch_date').value,
-      email: document.getElementById('contact_email').value
-    });
-
     localStorage.removeItem(DRAFT_KEY);
-  }, 1600);
+  } else {
+    alert('ขออภัย ระบบเกิดข้อผิดพลาดชั่วคราว กรุณาลองใหม่อีกครั้ง หรือติดต่อเราผ่าน LINE โดยตรงครับ');
+    btn.disabled = false;
+    btn.innerHTML = '🚀 ส่งข้อมูลเริ่มโปรเจกต์!';
+  }
 }
 
 // ══ INIT ══════════════════════════════════════════════════════
