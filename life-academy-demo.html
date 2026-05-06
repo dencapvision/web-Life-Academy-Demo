@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIFE Academy — สถาบันติวเตอร์ หาดใหญ่ | 14 ปี แห่งความสำเร็จ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f4ff;
+    --bg2: #ffffff;
+    --navy: #0f2557;
+    --blue: #1a56db;
+    --blue-light: #3b82f6;
+    --gold: #f59e0b;
+    --gold-light: #fef3c7;
+    --teal: #0891b2;
+    --green: #059669;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --card-shadow: 0 4px 24px rgba(15,37,87,0.08);
+    --radius: 16px;
+    --font-thai: 'IBM Plex Sans Thai', sans-serif;
+    --font-display: 'Playfair Display', serif;
+    --font-ui: 'Space Grotesk', sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-thai);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== DEMO BANNER ===== */
+  .demo-banner {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    font-family: var(--font-ui);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    letter-spacing: 0.03em;
+  }
+  .demo-banner span { opacity: 0.7; }
+  .demo-banner strong { color: var(--gold); }
+
+  /* ===== NAV ===== */
+  nav {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 40px;
+    z-index: 900;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .logo-text h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    font-family: var(--font-ui);
+  }
+  .logo-text span {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-cta {
+    background: var(--navy);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 92vh;
+    background: linear-gradient(135deg, var(--navy) 0%, #1e3a8a 50%, #1d4ed8 100%);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(59,130,246,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(245,158,11,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 60% 80%, rgba(8,145,178,0.2) 0%, transparent 40%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    font-family: var(--font-ui);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 58px);
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero-title .highlight {
+    color: var(--gold);
+    position: relative;
+  }
+  .hero-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+    line-height: 1.8;
+    font-family: var(--font-thai);
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    font-family: var(--font-ui);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+    font-family: var(--font-ui);
+  }
+  .stat-divider {
+    width: 1px;
+    background: rgba(255,255,255,0.15);
+    align-self: stretch;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.2s;
+    font-family: var(--font-ui);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.4); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.2s;
+    font-family: var(--font-ui);
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+  /* Hero Right — Course Finder Card */
+  .hero-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .card-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    font-family: var(--font-ui);
+  }
+  .card-header p { font-size: 12px; color: var(--text-muted); }
+  .finder-form { display: flex; flex-direction: column; gap: 14px; }
+  .finder-form select,
+  .finder-form input {
+    width: 100%;
+    padding: 11px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--font-thai);
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .finder-form select:focus,
+  .finder-form input:focus { border-color: var(--blue-light); }
+  .finder-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: white;
+    padding: 13px;
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-thai);
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .finder-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .finder-result {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: 12px;
+  }
+  .finder-result h4 { font-size: 14px; font-weight: 700; color: #065f46; margin-bottom: 8px; }
+  .finder-result p { font-size: 13px; color: #065f46; }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 100px 0; }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eff6ff;
+    color: var(--blue);
+    border: 1px solid #bfdbfe;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.8;
+  }
+
+  /* ===== STORY ===== */
+  .story { background: white; }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story-visual {
+    position: relative;
+  }
+  .story-img-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-img-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .story-badge-float {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: white;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: var(--card-shadow);
+    font-family: var(--font-ui);
+  }
+  .story-badge-float strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .story-badge-float span { font-size: 12px; color: var(--text-muted); }
+  .story-points { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .story-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 11px;
+  }
+  
+  /* ===== SERVICES / COURSES ===== */
+  .services { background: var(--bg); }
+  .tabs-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 48px;
+    background: white;
+    padding: 6px;
+    border-radius: 16px;
+    width: fit-content;
+    box-shadow: 0 2px 12px rgba(15,37,87,0.06);
+  }
+  .tab-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    font-family: var(--font-thai);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+  }
+  .tab-btn.active {
+    background: var(--navy);
+    color: white;
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .course-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .course-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--blue-light);
+    box-shadow: 0 12px 40px rgba(26,86,219,0.12);
+  }
+  .course-level {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .level-primary { background: #eff6ff; color: var(--blue); }
+  .level-secondary { background: #fef3c7; color: #92400e; }
+  .level-advanced { background: #ecfdf5; color: #065f46; }
+  .course-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .course-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+  .course-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-ui);
+  }
+  .course-meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== UNIQUE FEATURE: LEVEL TEST ===== */
+  .feature { background: white; }
+  .level-test-wrap {
+    background: linear-gradient(135deg, #f0f4ff, #eff6ff);
+    border-radius: 32px;
+    padding: 60px;
+    border: 1px solid #c7d2fe;
+  }
+  .level-test-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .quiz-container { max-width: 640px; margin: 0 auto; }
+  .quiz-step { display: none; }
+  .quiz-step.active { display: block; }
+  .quiz-progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 32px;
+    justify-content: center;
+  }
+  .progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .progress-dot.done { background: var(--blue); }
+  .quiz-q {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 24px;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .quiz-opt {
+    padding: 14px 20px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: var(--font-thai);
+    font-size: 15px;
+    background: white;
+    transition: all 0.2s;
+    text-align: left;
+    color: var(--text);
+  }
+  .quiz-opt:hover, .quiz-opt.selected {
+    border-color: var(--blue-light);
+    background: #eff6ff;
+    color: var(--blue);
+  }
+  .quiz-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .btn-quiz {
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: var(--font-thai);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .btn-quiz-next {
+    background: var(--navy);
+    color: white;
+  }
+  .btn-quiz-next:hover { background: var(--blue); }
+  .quiz-result {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    display: none;
+  }
+  .result-level {
+    font-size: 48px;
+    font-weight: 700;
+    font-family: var(--font-ui);
+    color: var(--navy);
+    margin: 16px 0 8px;
+  }
+  .result-desc { font-size: 16px; color: var(--text-muted); margin-bottom: 24px; }
+  .result-courses {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    text-align: left;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  /* ===== TEACHERS ===== */
+  .teachers { background: var(--bg); }
+  .teachers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+  .teacher-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s;
+  }
+  .teacher-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(15,37,87,0.12); }
+  .teacher-avatar {
+    height: 180px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+  }
+  .teacher-info { padding: 20px; }
+  .teacher-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; font-family: var(--font-ui); }
+  .teacher-subject { font-size: 13px; color: var(--blue); font-weight: 600; margin-bottom: 8px; }
+  .teacher-exp { font-size: 12px; color: var(--text-muted); }
+  .teacher-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 12px; }
+  .tag {
+    padding: 3px 8px;
+    background: var(--bg);
+    border-radius: 50px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-ui);
+  }
+
+  /* ===== SERVICES ===== */
+  .service-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .service-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 4px 4px 0 0;
+  }
+  .service-card.blue::before { background: linear-gradient(90deg, var(--navy), var(--blue)); }
+  .service-card.teal::before { background: linear-gradient(90deg, var(--teal), #06b6d4); }
+  .service-card.green::before { background: linear-gradient(90deg, var(--green), #34d399); }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,37,87,0.12); }
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .service-icon.blue { background: #eff6ff; }
+  .service-icon.teal { background: #ecfeff; }
+  .service-icon.green { background: #f0fdf4; }
+  .service-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .service-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+  .service-features { list-style: none; }
+  .service-features li { font-size: 13px; color: var(--text); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+  .service-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials { background: var(--navy); padding: 100px 0; }
+  .testimonials .section-title { color: white; }
+  .testimonials .section-sub { color: rgba(255,255,255,0.6); }
+  .testimonials .section-tag { background: rgba(245,158,11,0.15); color: var(--gold); border-color: rgba(245,158,11,0.3); }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .testimonial-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.25s;
+  }
+  .testimonial-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-4px);
+  }
+  .stars { color: var(--gold); font-size: 16px; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-text { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 20px; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .author-name { font-weight: 700; font-size: 14px; color: white; font-family: var(--font-ui); }
+  .author-note { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+  /* ===== NEWS ===== */
+  .news { background: white; }
+  .news-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .news-card {
+    background: var(--bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .news-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow); }
+  .news-thumb {
+    height: 200px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+  .news-card.small .news-thumb { height: 120px; font-size: 32px; }
+  .news-content { padding: 20px; }
+  .news-date { font-size: 11px; color: var(--text-muted); font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .news-title { font-size: 16px; font-weight: 700; color: var(--navy); line-height: 1.4; margin-bottom: 8px; }
+  .news-card.small .news-title { font-size: 14px; }
+  .news-excerpt { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ===== BOOKING ===== */
+  .booking { background: linear-gradient(135deg, var(--navy) 0%, #1e3a8a 100%); padding: 100px 0; }
+  .booking-inner { max-width: 800px; margin: 0 auto; padding: 0 24px; text-align: center; }
+  .booking .section-title { color: white; }
+  .booking .section-sub { color: rgba(255,255,255,0.7); margin: 0 auto 48px; }
+  .booking-form {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1/-1; }
+  .form-group label { font-size: 13px; font-weight: 600; color: var(--navy); font-family: var(--font-ui); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--font-thai);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--blue-light); }
+  .submit-btn {
+    grid-column: 1/-1;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-thai);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ===== PRICING PREVIEW ===== */
+  .pricing { background: var(--bg); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .pricing-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    transition: all 0.25s;
+  }
+  .pricing-card.featured {
+    background: linear-gradient(135deg, var(--navy), #1e40af);
+    color: white;
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(15,37,87,0.25);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    padding: 4px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: var(--font-ui);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .phase-label { font-size: 12px; font-weight: 600; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .pricing-card:not(.featured) .phase-label { color: var(--blue); }
+  .pricing-card.featured .phase-label { color: rgba(255,255,255,0.6); }
+  .pricing-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; font-family: var(--font-ui); }
+  .pricing-card:not(.featured) .pricing-title { color: var(--navy); }
+  .pricing-price { margin: 20px 0; }
+  .price-num { font-size: 36px; font-weight: 700; font-family: var(--font-ui); line-height: 1; }
+  .pricing-card:not(.featured) .price-num { color: var(--navy); }
+  .pricing-card.featured .price-num { color: var(--gold); }
+  .price-period { font-size: 13px; opacity: 0.6; font-family: var(--font-ui); }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .pricing-features li { font-size: 14px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .pricing-card:not(.featured) .pricing-features li { color: var(--text); }
+  .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.85); }
+  .pricing-card:not(.featured) .pricing-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+  .pricing-card.featured .pricing-features li::before { content: '✓'; color: var(--gold); font-weight: 700; }
+  .pricing-cta {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    font-family: var(--font-thai);
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .pricing-card:not(.featured) .pricing-cta { background: var(--bg); color: var(--navy); border: 1.5px solid var(--border); }
+  .pricing-card:not(.featured) .pricing-cta:hover { background: var(--navy); color: white; }
+  .pricing-card.featured .pricing-cta { background: var(--gold); color: var(--navy); }
+  .pricing-card.featured .pricing-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,158,11,0.4); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #0a1628;
+    color: rgba(255,255,255,0.7);
+    padding: 64px 0 32px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand h3 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; font-family: var(--font-ui); }
+  .footer-brand p { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+  .social-links { display: flex; gap: 12px; }
+  .social-link {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .social-link:hover { background: rgba(255,255,255,0.15); }
+  .footer-col h4 { font-size: 14px; font-weight: 600; color: white; margin-bottom: 16px; font-family: var(--font-ui); }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-links a { text-decoration: none; font-size: 14px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+  .footer-logo-small { color: white; font-weight: 700; font-family: var(--font-ui); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-card { max-width: 400px; }
+    .story-grid, .teachers-grid { grid-template-columns: 1fr 1fr; }
+    .service-cards, .tab-content.active { grid-template-columns: 1fr 1fr; }
+    .testimonial-grid, .news-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .level-test-wrap { padding: 40px 24px; }
+    .booking-form { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 60px 0; }
+    .hero { min-height: auto; padding: 60px 0; }
+    .story-grid, .teachers-grid, .service-cards, .tab-content.active { grid-template-columns: 1fr; }
+    .hero-stats { gap: 20px; }
+    .pricing-card.featured { transform: none; }
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .fade-up-2 { animation: fadeUp 0.6s ease 0.1s forwards; opacity: 0; }
+  .fade-up-3 { animation: fadeUp 0.6s ease 0.2s forwards; opacity: 0; }
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+  🎨 <strong>Demo Website</strong> <span>— ออกแบบโดย CAP Vision Institute × ครูเด่น มาสเตอร์ฟา | เว็บนี้เป็นตัวอย่างสำหรับเสนอลูกค้าเท่านั้น</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-icon">L</div>
+      <div class="logo-text">
+        <h1>LIFE Academy</h1>
+        <span>สถาบันติวเตอร์ หาดใหญ่</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">เกี่ยวกับเรา</a></li>
+      <li><a href="#courses">หลักสูตร</a></li>
+      <li><a href="#teachers">ครูผู้สอน</a></li>
+      <li><a href="#services">บริการ</a></li>
+      <li><a href="#news">ข่าวสาร</a></li>
+    </ul>
+    <a href="#booking" class="nav-cta">📚 ลงทะเบียนเรียน</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge fade-up">🏆 14 ปี แห่งความสำเร็จ • หาดใหญ่, สงขลา</div>
+      <h1 class="hero-title fade-up-2">
+        เรียนให้ <span class="highlight">ได้ผล</span><br>
+        ด้วยครูมืออาชีพ<br>
+        ที่คุณไว้ใจ
+      </h1>
+      <p class="hero-subtitle fade-up-3">
+        LIFE Academy สถาบันติวเตอร์ชั้นนำในหาดใหญ่ ด้วยประสบการณ์กว่า 14 ปี<br>
+        เราออกแบบการเรียนรู้ที่เหมาะกับตัวคุณ ทั้งออนไซต์และออนไลน์
+      </p>
+      <div class="hero-stats fade-up-3">
+        <div class="stat">
+          <div class="stat-number">14+</div>
+          <div class="stat-label">ปีประสบการณ์</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">นักเรียนสำเร็จ</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">หลักสูตร</div>
+        </div>
+      </div>
+      <div class="hero-actions fade-up-3">
+        <a href="#level-test" class="btn-primary">🎯 ทดสอบระดับฟรี</a>
+        <a href="#courses" class="btn-outline">ดูหลักสูตร →</a>
+      </div>
+    </div>
+
+    <!-- Course Finder Card -->
+    <div class="hero-card">
+      <div class="card-header">
+        <div class="card-icon">🔍</div>
+        <div>
+          <h3>ค้นหาหลักสูตรที่ใช่</h3>
+          <p>บอกเราว่าต้องการอะไร</p>
+        </div>
+      </div>
+      <div class="finder-form">
+        <select id="finder-level">
+          <option value="">🎓 ระดับชั้น / วัตถุประสงค์</option>
+          <option value="primary">ประถมศึกษา (ป.1–ป.6)</option>
+          <option value="secondary">มัธยมต้น (ม.1–ม.3)</option>
+          <option value="high">มัธยมปลาย (ม.4–ม.6)</option>
+          <option value="exam">เตรียมสอบ (ONET/PAT/เข้ามหาวิทยาลัย)</option>
+          <option value="english">ภาษาอังกฤษทั่วไป</option>
+          <option value="adult">ผู้ใหญ่/การทำงาน</option>
+        </select>
+        <select id="finder-subject">
+          <option value="">📚 วิชาที่ต้องการ</option>
+          <option>คณิตศาสตร์</option>
+          <option>ภาษาอังกฤษ</option>
+          <option>ภาษาไทย</option>
+          <option>วิทยาศาสตร์</option>
+          <option>ฟิสิกส์ / เคมี / ชีวะ</option>
+          <option>สังคมศึกษา</option>
+          <option>โปรแกรมมิ่ง / IT</option>
+        </select>
+        <select id="finder-format">
+          <option value="">🖥️ รูปแบบการเรียน</option>
+          <option>เรียนที่สถาบัน (On-site)</option>
+          <option>เรียนออนไลน์ (Online)</option>
+          <option>เรียนตัวต่อตัว (Private)</option>
+        </select>
+        <button class="finder-btn" onclick="findCourse()">🔎 หาหลักสูตรเลย!</button>
+        <div class="finder-result" id="finder-result">
+          <h4>✅ แนะนำสำหรับคุณ!</h4>
+          <p id="finder-result-text">กำลังแนะนำหลักสูตร...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="story" id="about">
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-visual">
+        <div class="story-img-main">
+          📚
+        </div>
+        <div class="story-badge-float">
+          <strong>14</strong>
+          <span>ปีประสบการณ์<br>คุณภาพที่ไว้ใจ</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">✨ เรื่องราวของเรา</div>
+        <h2 class="section-title">LIFE Academy<br>ก่อตั้งด้วยใจรักการสอน</h2>
+        <p class="section-sub">
+          เราเชื่อว่า "ทุกคนเรียนรู้ได้" ด้วยวิธีที่เหมาะกับตัวเอง LIFE Academy จึงให้ความสำคัญกับการออกแบบการเรียนรู้เฉพาะบุคคล พร้อมครูผู้สอนที่มีใจรักและประสบการณ์จริง
+        </p>
+        <ul class="story-points">
+          <li>
+            <span class="check-icon">✓</span>
+            <span><strong>ประสบการณ์ 14 ปี</strong> — ผ่านนักเรียนกว่า 5,000 คน มีผลสำเร็จที่จับต้องได้</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span><strong>ครูมืออาชีพที่คัดมาแล้ว</strong> — ทุกคนผ่านการฝึกอบรมเทคนิคการสอนแบบ LIFE Method</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span><strong>วัดผลได้จริง</strong> — มีระบบ Pre/Post Test + รายงานความก้าวหน้าส่งผู้ปกครอง</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span><strong>เรียนได้ทุกที่</strong> — รองรับทั้งออนไซต์ ออนไลน์ และเรียนส่วนตัว</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span><strong>ดูแลตัวต่อตัว</strong> — ห้องเรียนขนาดเล็ก ครูดูแลใกล้ชิด ไม่ทิ้งใครไว้ข้างหลัง</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="services" id="courses">
+  <div class="section-inner">
+    <div class="section-tag">📖 หลักสูตรของเรา</div>
+    <h2 class="section-title">เลือกเรียนตามระดับชั้น</h2>
+    <p class="section-sub">ออกแบบหลักสูตรที่ครอบคลุมทุกช่วงวัย ตั้งแต่ประถมถึงเตรียมสอบเข้ามหาวิทยาลัย</p>
+    <div style="height:40px"></div>
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('primary', this)">ประถม</button>
+      <button class="tab-btn" onclick="switchTab('secondary', this)">มัธยมต้น</button>
+      <button class="tab-btn" onclick="switchTab('high', this)">มัธยมปลาย</button>
+      <button class="tab-btn" onclick="switchTab('exam', this)">เตรียมสอบ</button>
+    </div>
+
+    <div class="tab-content active" id="tab-primary">
+      <div class="course-card">
+        <span class="course-level level-primary">ป.1–ป.3</span>
+        <h3>คณิตศาสตร์พื้นฐาน</h3>
+        <p>สร้างรากฐานความเข้าใจคณิตผ่านเกมและสื่อที่สนุก เหมาะกับเด็กเล็กที่ต้องการสร้างความมั่นใจ</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 2 ครั้ง</span>
+          <span>👥 max 8 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-secondary">ป.4–ป.6</span>
+        <h3>ภาษาอังกฤษชั้นประถม</h3>
+        <p>เน้นการพูด ฟัง อ่าน เขียน ด้วย Phonics System และ Conversation Practice ที่สนุกสนาน</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 2 ครั้ง</span>
+          <span>👥 max 10 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-advanced">ป.1–ป.6</span>
+        <h3>ภาษาไทย + การอ่านเขียน</h3>
+        <p>พัฒนาทักษะภาษาไทยอย่างรอบด้าน ทั้งการอ่านออกเสียง การเขียนสะกดคำ และเรียงความ</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 2 ครั้ง</span>
+          <span>👥 max 8 คน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-secondary">
+      <div class="course-card">
+        <span class="course-level level-primary">ม.1–ม.3</span>
+        <h3>คณิตศาสตร์มัธยมต้น</h3>
+        <p>ครอบคลุมเนื้อหาตามหลักสูตรแกนกลาง พร้อมฝึกโจทย์หลากหลาย สร้างทักษะคิดเป็นระบบ</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 2 ครั้ง</span>
+          <span>👥 max 10 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-secondary">ม.1–ม.3</span>
+        <h3>ภาษาอังกฤษระดับมัธยม</h3>
+        <p>เรียนรู้ Grammar ที่ถูกต้อง ฝึก Reading Comprehension และ Writing ระดับมัธยมต้นแบบเข้มข้น</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 3 ครั้ง</span>
+          <span>👥 max 10 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-advanced">ม.1–ม.3</span>
+        <h3>วิทยาศาสตร์ ม.ต้น</h3>
+        <p>ฟิสิกส์ เคมี ชีววิทยาเบื้องต้น พร้อม Lab Simulation และแบบทดสอบรูปแบบ ONET</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 2 ครั้ง</span>
+          <span>👥 max 8 คน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-high">
+      <div class="course-card">
+        <span class="course-level level-primary">ม.4–ม.6</span>
+        <h3>คณิตศาสตร์ ม.ปลาย</h3>
+        <p>แคลคูลัส สถิติ ความน่าจะเป็น และหัวข้อขั้นสูงสำหรับเตรียมสอบเข้ามหาวิทยาลัย</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 3 ครั้ง</span>
+          <span>👥 max 8 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-secondary">ม.4–ม.6</span>
+        <h3>ฟิสิกส์ / เคมี / ชีวะ</h3>
+        <p>เรียนลึก เรียนครบ ตรงตาม PAT และ O-NET เหมาะสำหรับนักเรียนสายวิทย์ที่ต้องการคะแนนสูง</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 3 ครั้ง</span>
+          <span>👥 max 8 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-advanced">ม.4–ม.6</span>
+        <h3>ภาษาอังกฤษระดับสูง</h3>
+        <p>เน้น Reading + Writing + Speaking สำหรับ TOEIC/IELTS เบื้องต้น และการสอบมหาวิทยาลัย</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 3 ครั้ง</span>
+          <span>👥 max 10 คน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-exam">
+      <div class="course-card">
+        <span class="course-level level-primary">ONET</span>
+        <h3>ติว ONET ม.3 / ม.6</h3>
+        <p>ทบทวนครบทุกวิชา ฝึกข้อสอบจริงย้อนหลัง พร้อมเทคนิคทำข้อสอบให้ได้คะแนนสูงสุด</p>
+        <div class="course-meta">
+          <span>📅 Intensive Weekend</span>
+          <span>👥 max 15 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-secondary">PAT</span>
+        <h3>ติว PAT 1–7</h3>
+        <p>เตรียมสอบ PAT แต่ละสาขาโดยครูเฉพาะทาง เน้นเนื้อหาที่ออกสอบบ่อยและกลยุทธ์การทำข้อสอบ</p>
+        <div class="course-meta">
+          <span>📅 Intensive 3 เดือน</span>
+          <span>👥 max 12 คน</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <span class="course-level level-advanced">English</span>
+        <h3>TOEIC / IELTS Prep</h3>
+        <p>เพิ่มคะแนน TOEIC และ IELTS ด้วยโปรแกรมเฉพาะทาง พร้อม Mock Test และ Feedback รายบุคคล</p>
+        <div class="course-meta">
+          <span>📅 สัปดาห์ละ 3 ครั้ง</span>
+          <span>👥 max 8 คน</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVEL TEST FEATURE -->
+<section class="feature" id="level-test">
+  <div class="section-inner">
+    <div class="level-test-wrap">
+      <div class="level-test-header">
+        <div class="section-tag">🎯 Interactive Feature</div>
+        <h2 class="section-title">ทดสอบระดับการเรียนรู้<br>ของคุณฟรี!</h2>
+        <p class="section-sub" style="margin:0 auto">ตอบ 3 คำถาม เพื่อให้เราแนะนำหลักสูตรที่เหมาะสมที่สุดสำหรับคุณ</p>
+      </div>
+
+      <div class="quiz-container">
+        <div class="quiz-progress">
+          <div class="progress-dot done" id="dot1"></div>
+          <div class="progress-dot" id="dot2"></div>
+          <div class="progress-dot" id="dot3"></div>
+        </div>
+
+        <div class="quiz-step active" id="step1">
+          <div class="quiz-q">คุณเรียน/สอนอยู่ในระดับชั้นใด?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="selectOpt(this, 1, 'primary')">🎒 ประถมศึกษา (ป.1–ป.6)</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 1, 'secondary')">📓 มัธยมต้น (ม.1–ม.3)</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 1, 'high')">📘 มัธยมปลาย (ม.4–ม.6)</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 1, 'adult')">👔 ผู้ใหญ่ / การทำงาน</button>
+          </div>
+          <div class="quiz-nav">
+            <button class="btn-quiz btn-quiz-next" onclick="nextStep(2)">ถัดไป →</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="step2">
+          <div class="quiz-q">วิชาที่ต้องการเสริมมากที่สุดคือ?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="selectOpt(this, 2, 'math')">🔢 คณิตศาสตร์</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 2, 'english')">🌍 ภาษาอังกฤษ</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 2, 'science')">🔬 วิทยาศาสตร์</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 2, 'thai')">📖 ภาษาไทย</button>
+          </div>
+          <div class="quiz-nav">
+            <button class="btn-quiz btn-quiz-next" onclick="nextStep(3)">ถัดไป →</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="step3">
+          <div class="quiz-q">คุณต้องการพัฒนาในด้านใดมากที่สุด?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="selectOpt(this, 3, 'basics')">📌 เสริมพื้นฐาน ให้แน่น</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 3, 'exam')">🏆 เตรียมสอบ ให้คะแนนสูง</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 3, 'speed')">⚡ เพิ่มความเร็วและความมั่นใจ</button>
+            <button class="quiz-opt" onclick="selectOpt(this, 3, 'advanced')">🚀 เรียนล่วงหน้า / ก้าวหน้า</button>
+          </div>
+          <div class="quiz-nav">
+            <button class="btn-quiz btn-quiz-next" onclick="showResult()">ดูผลลัพธ์ 🎯</button>
+          </div>
+        </div>
+
+        <div class="quiz-result" id="quiz-result">
+          <div style="font-size:48px">🎓</div>
+          <div class="result-level" id="result-level">ระดับกลาง</div>
+          <div class="result-desc" id="result-desc">เหมาะสำหรับหลักสูตรเสริมทักษะ</div>
+          <div class="result-courses" id="result-courses">
+            กำลังแนะนำหลักสูตร...
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a href="#booking" class="btn-primary" style="text-decoration:none">📞 ปรึกษาฟรี</a>
+            <button class="btn-outline" style="cursor:pointer;background:transparent;color:var(--navy);border:1.5px solid var(--border);padding:14px 32px;border-radius:50px;font-family:var(--font-thai);font-size:15px;font-weight:600" onclick="resetQuiz()">ทำใหม่อีกครั้ง</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHERS -->
+<section class="teachers" id="teachers">
+  <div class="section-inner">
+    <div class="section-tag">👩‍🏫 ทีมครูผู้สอน</div>
+    <h2 class="section-title">ครูผู้เชี่ยวชาญ<br>ที่คัดมาเพื่อคุณ</h2>
+    <p class="section-sub">ทุกท่านผ่านการคัดเลือก อบรม และมีประสบการณ์สอนจริงในสาขาของตนเอง</p>
+    <div class="teachers-grid">
+      <div class="teacher-card">
+        <div class="teacher-avatar">👩‍🏫</div>
+        <div class="teacher-info">
+          <div class="teacher-name">อ.สมหญิง วิชาการ</div>
+          <div class="teacher-subject">คณิตศาสตร์</div>
+          <div class="teacher-exp">ประสบการณ์ 10 ปี | ปริญญาโท มหาวิทยาลัยสงขลา</div>
+          <div class="teacher-tags">
+            <span class="tag">ม.ต้น</span>
+            <span class="tag">ม.ปลาย</span>
+            <span class="tag">PAT1</span>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-card">
+        <div class="teacher-avatar">👨‍🏫</div>
+        <div class="teacher-info">
+          <div class="teacher-name">อ.ณัฐพงศ์ ภาษาดี</div>
+          <div class="teacher-subject">ภาษาอังกฤษ</div>
+          <div class="teacher-exp">ประสบการณ์ 8 ปี | IELTS 8.0 | ผ่านการอบรมต่างประเทศ</div>
+          <div class="teacher-tags">
+            <span class="tag">TOEIC</span>
+            <span class="tag">IELTS</span>
+            <span class="tag">ม.ปลาย</span>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-card">
+        <div class="teacher-avatar">👩‍🔬</div>
+        <div class="teacher-info">
+          <div class="teacher-name">อ.ปิยวรรณ วิทย์ฉลาด</div>
+          <div class="teacher-subject">วิทยาศาสตร์</div>
+          <div class="teacher-exp">ประสบการณ์ 7 ปี | เคมี-ชีวะ เชี่ยวชาญ</div>
+          <div class="teacher-tags">
+            <span class="tag">ฟิสิกส์</span>
+            <span class="tag">เคมี</span>
+            <span class="tag">PAT2</span>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-card">
+        <div class="teacher-avatar">📚</div>
+        <div class="teacher-info">
+          <div class="teacher-name">อ.กิตติ ไทยวิเชียร</div>
+          <div class="teacher-subject">ภาษาไทย</div>
+          <div class="teacher-exp">ประสบการณ์ 12 ปี | เชี่ยวชาญรุ่นประถม-มัธยม</div>
+          <div class="teacher-tags">
+            <span class="tag">ป.4–ป.6</span>
+            <span class="tag">ม.ต้น</span>
+            <span class="tag">ONET</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services" style="background:white">
+  <div class="section-inner">
+    <div class="section-tag">🌐 บริการของเรา</div>
+    <h2 class="section-title">ครบครันทุกความต้องการ</h2>
+    <p class="section-sub">มากกว่าการสอน — เราออกแบบระบบการเรียนรู้ที่รองรับทุก Lifestyle ของนักเรียนยุคใหม่</p>
+    <div class="service-cards">
+      <div class="service-card blue">
+        <div class="service-icon blue">💻</div>
+        <h3>เรียนออนไลน์สด</h3>
+        <p>เรียนผ่าน Zoom / Google Meet กับครูแบบ Live สด รู้สึกเหมือนนั่งในห้องเรียนจริง</p>
+        <ul class="service-features">
+          <li>Whiteboard Interactive ใช้ร่วมกัน</li>
+          <li>บันทึกคาบเรียนย้อนดูได้ 30 วัน</li>
+          <li>ทำแบบฝึกหัดร่วมกัน Real-time</li>
+          <li>รายงานการเข้าเรียนส่งผู้ปกครอง</li>
+        </ul>
+      </div>
+      <div class="service-card teal">
+        <div class="service-icon teal">🎯</div>
+        <h3>ให้คำปรึกษาการเรียน</h3>
+        <p>ประเมินจุดอ่อน-จุดแข็ง และวางแผนการเรียนส่วนตัว โดยที่ปรึกษาการศึกษาของสถาบัน</p>
+        <ul class="service-features">
+          <li>ทดสอบและวัดระดับผู้เรียนฟรี</li>
+          <li>วางแผนการเรียนระยะสั้น-ยาว</li>
+          <li>ติดตามผลทุกเดือน</li>
+          <li>ปรึกษาเรื่องสอบเข้ามหาวิทยาลัย</li>
+        </ul>
+      </div>
+      <div class="service-card green">
+        <div class="service-icon green">📊</div>
+        <h3>ระบบติดตามนักเรียน</h3>
+        <p>ผู้ปกครองสามารถติดตามผลการเรียน การเข้าเรียน และความก้าวหน้าได้แบบ Real-time</p>
+        <ul class="service-features">
+          <li>Dashboard สำหรับผู้ปกครอง</li>
+          <li>รายงานผลการทดสอบ Pre/Post</li>
+          <li>แจ้งเตือนผ่าน LINE อัตโนมัติ</li>
+          <li>ปฏิทินการเรียนออนไลน์</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">💬 รีวิวจากผู้เรียน</div>
+    <h2 class="section-title">เสียงจากนักเรียน<br>และผู้ปกครองจริงๆ</h2>
+    <p class="section-sub">ความสำเร็จของลูกศิษย์คือรางวัลสูงสุดของ LIFE Academy</p>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"ลูกเรียนกับ LIFE Academy 1 ปี คะแนนคณิตขึ้นจาก 45 เป็น 82 ทีแรกไม่เชื่อว่าจะเปลี่ยนได้มากขนาดนี้ ครูใจดี อธิบายชัดมาก"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩</div>
+          <div>
+            <div class="author-name">คุณแม่น้องมิ้ว</div>
+            <div class="author-note">ผู้ปกครอง นักเรียน ป.5</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"ผมสอบ ONET ม.6 ได้คะแนนรวม 83% หลังจากติวที่นี่ 3 เดือน ครูเข้าใจรูปแบบข้อสอบมาก แนะนำเทคนิคที่ใช้ได้จริง"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍🎓</div>
+          <div>
+            <div class="author-name">น้องต้น</div>
+            <div class="author-note">นักเรียน ม.6, สอบเข้า ม.อ. ได้</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"ชอบระบบ Online มาก ดูย้อนหลังได้ เหมาะกับเราที่บางทีรถติดกลับบ้านไม่ทัน ครูก็ตอบคำถาม LINE ด้วย บริการดีมากๆ"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👧</div>
+          <div>
+            <div class="author-name">น้องแก้ม</div>
+            <div class="author-note">นักเรียน ม.4, เรียนออนไลน์</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news" id="news">
+  <div class="section-inner">
+    <div class="section-tag">📰 ข่าวกิจกรรม</div>
+    <h2 class="section-title">ข่าวสารล่าสุด</h2>
+    <p class="section-sub">ติดตามกิจกรรมและความเคลื่อนไหวของ LIFE Academy</p>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-thumb">🏆</div>
+        <div class="news-content">
+          <div class="news-date">มิถุนายน 2568</div>
+          <div class="news-title">นักเรียน LIFE Academy คว้ารางวัลโอลิมปิกวิชาการ ระดับจังหวัดสงขลา</div>
+          <div class="news-excerpt">นักเรียนของเราสร้างความภาคภูมิใจ คว้า 3 รางวัลจากการแข่งขันโอลิมปิกวิชาการปีนี้ โดยเฉพาะสาขาคณิตศาสตร์และวิทยาศาสตร์...</div>
+        </div>
+      </div>
+      <div class="news-card small">
+        <div class="news-thumb">📅</div>
+        <div class="news-content">
+          <div class="news-date">พฤษภาคม 2568</div>
+          <div class="news-title">เปิดรับสมัคร ภาคเรียนใหม่ 2568</div>
+          <div class="news-excerpt">รับจำนวนจำกัด! ลงทะเบียนก่อนมีที่นั่ง</div>
+        </div>
+      </div>
+      <div class="news-card small">
+        <div class="news-thumb">🎉</div>
+        <div class="news-content">
+          <div class="news-date">เมษายน 2568</div>
+          <div class="news-title">Camp ปิดเทอม Summer 2568</div>
+          <div class="news-excerpt">ค่ายวิชาการสนุกสนาน เรียนรู้แบบ Active Learning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="section-tag" style="background:rgba(245,158,11,0.15);color:var(--gold);border-color:rgba(245,158,11,0.3)">📞 ติดต่อ / ลงทะเบียน</div>
+    <h2 class="section-title" style="color:white;text-align:center">เริ่มต้นการเดินทาง<br>แห่งความสำเร็จวันนี้</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7);text-align:center;margin:0 auto 40px">ฝากข้อมูลไว้ ทีมของเราจะติดต่อกลับภายใน 24 ชั่วโมง เพื่อนัดปรึกษาฟรี</p>
+    <div class="booking-form">
+      <div class="form-group">
+        <label>ชื่อ-นามสกุลผู้เรียน *</label>
+        <input type="text" placeholder="ชื่อ-นามสกุล">
+      </div>
+      <div class="form-group">
+        <label>เบอร์โทรศัพท์ *</label>
+        <input type="tel" placeholder="08X-XXX-XXXX">
+      </div>
+      <div class="form-group">
+        <label>ระดับชั้น *</label>
+        <select>
+          <option value="">เลือกระดับชั้น</option>
+          <option>ประถมศึกษา ป.1–ป.3</option>
+          <option>ประถมศึกษา ป.4–ป.6</option>
+          <option>มัธยมต้น ม.1–ม.3</option>
+          <option>มัธยมปลาย ม.4–ม.6</option>
+          <option>เตรียมสอบ / TOEIC / IELTS</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>วิชาที่สนใจ *</label>
+        <select>
+          <option value="">เลือกวิชา</option>
+          <option>คณิตศาสตร์</option>
+          <option>ภาษาอังกฤษ</option>
+          <option>วิทยาศาสตร์</option>
+          <option>ภาษาไทย</option>
+          <option>หลายวิชา</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>ข้อความเพิ่มเติม (ถ้ามี)</label>
+        <textarea rows="3" placeholder="บอกเราเพิ่มเติมเกี่ยวกับความต้องการของคุณ..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">📚 ลงทะเบียน / ปรึกษาฟรี</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING PREVIEW -->
+<section class="pricing">
+  <div class="section-inner">
+    <div class="section-tag">💎 แพ็กเกจเว็บไซต์</div>
+    <h2 class="section-title">พัฒนาเว็บไซต์<br>LIFE Academy</h2>
+    <p class="section-sub">แพ็กเกจการพัฒนาเว็บไซต์สำหรับสถาบัน ครบทุกฟีเจอร์ที่ต้องการ</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="phase-label">Phase 1</div>
+        <div class="pricing-title">Brand Presence</div>
+        <div class="pricing-price">
+          <div class="price-num">฿25,000</div>
+          <div class="price-period">ค่าพัฒนาครั้งเดียว</div>
+        </div>
+        <ul class="pricing-features">
+          <li>เว็บไซต์สวยงาม รองรับมือถือ</li>
+          <li>หน้าหลักสูตรและครูผู้สอน</li>
+          <li>ฟอร์มลงทะเบียน + แจ้งเตือน LINE</li>
+          <li>SEO พื้นฐาน + Google Maps</li>
+          <li>โฮสติ้งฟรี (Cloudflare Pages)</li>
+        </ul>
+        <a href="#booking" class="pricing-cta">เริ่มต้น Phase 1</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">⭐ แนะนำ</div>
+        <div class="phase-label">Phase 2</div>
+        <div class="pricing-title">Student Portal</div>
+        <div class="pricing-price">
+          <div class="price-num">฿38,000</div>
+          <div class="price-period">เพิ่มจาก Phase 1</div>
+        </div>
+        <ul class="pricing-features">
+          <li>ระบบจัดการนักเรียนครบ</li>
+          <li>Dashboard ผู้ปกครอง</li>
+          <li>ตารางเรียน + บุ๊กกิ้งออนไลน์</li>
+          <li>Level Test Interactive</li>
+          <li>รายงานผลแบบ Real-time</li>
+        </ul>
+        <a href="#booking" class="pricing-cta">เริ่มต้น Phase 2</a>
+      </div>
+      <div class="pricing-card">
+        <div class="phase-label">Phase 3</div>
+        <div class="pricing-title">AI Learning Hub</div>
+        <div class="pricing-price">
+          <div class="price-num">฿42,000</div>
+          <div class="price-period">เพิ่มจาก Phase 2</div>
+        </div>
+        <ul class="pricing-features">
+          <li>AI Chatbot ให้คำปรึกษา</li>
+          <li>ระบบ E-Learning + วิดีโอ</li>
+          <li>AI แนะนำหลักสูตรเฉพาะบุคคล</li>
+          <li>Analytics Dashboard</li>
+          <li>Integration กับ Facebook/LINE</li>
+        </ul>
+        <a href="#booking" class="pricing-cta">เริ่มต้น Phase 3</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:32px;font-size:14px;color:var(--text-muted)">
+      🔧 ค่าดูแลระบบหลังส่งมอบ <strong style="color:var(--navy)">฿680/ปี</strong> (Domain เท่านั้น) • โฮสติ้งฟรีตลอดชีพ
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>LIFE Academy</h3>
+        <p>สถาบันติวเตอร์คุณภาพในหาดใหญ่ ด้วยประสบการณ์กว่า 14 ปี มุ่งมั่นส่งเสริมการศึกษาและพัฒนาศักยภาพผู้เรียนทุกระดับ</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/LifeHadyai" target="_blank" class="social-link">📘</a>
+          <a href="#" class="social-link">📱</a>
+          <a href="#" class="social-link">▶️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>หลักสูตร</h4>
+        <ul class="footer-links">
+          <li><a href="#">ระดับประถม</a></li>
+          <li><a href="#">มัธยมต้น</a></li>
+          <li><a href="#">มัธยมปลาย</a></li>
+          <li><a href="#">เตรียมสอบ</a></li>
+          <li><a href="#">TOEIC / IELTS</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>บริการ</h4>
+        <ul class="footer-links">
+          <li><a href="#">เรียนออนไลน์</a></li>
+          <li><a href="#">เรียนที่สถาบัน</a></li>
+          <li><a href="#">เรียนส่วนตัว</a></li>
+          <li><a href="#">วัดระดับฟรี</a></li>
+          <li><a href="#">ให้คำปรึกษา</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ติดต่อ</h4>
+        <ul class="footer-links">
+          <li><a href="#">📍 หาดใหญ่, สงขลา</a></li>
+          <li><a href="https://www.facebook.com/LifeHadyai">📘 Facebook Page</a></li>
+          <li><a href="#">📱 LINE Official</a></li>
+          <li><a href="#">⏰ จ–ศ 14:00–20:00</a></li>
+          <li><a href="#">⏰ ส–อา 9:00–18:00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2568 LIFE Academy. All rights reserved.</span>
+      <span class="footer-logo-small">Demo โดย CAP Vision Institute × ครูเด่น มาสเตอร์ฟา</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // Course finder
+  function findCourse() {
+    const level = document.getElementById('finder-level').value;
+    const subject = document.getElementById('finder-subject').value;
+    const format = document.getElementById('finder-format').value;
+    if (!level || !subject || !format) {
+      alert('กรุณาเลือกข้อมูลให้ครบก่อนนะครับ 😊');
+      return;
+    }
+    const result = document.getElementById('finder-result');
+    const text = document.getElementById('finder-result-text');
+    const map = {
+      primary: 'ระดับประถม', secondary: 'ระดับมัธยมต้น', high: 'ระดับมัธยมปลาย',
+      exam: 'เตรียมสอบ', english: 'English Program', adult: 'หลักสูตรผู้ใหญ่'
+    };
+    text.innerHTML = `✅ เราแนะนำ <strong>${subject} ${map[level] || level}</strong> รูปแบบ ${format}<br><br>📞 LINE us หรือกรอกฟอร์มด้านล่างเพื่อนัดปรึกษาฟรีได้เลยครับ!`;
+    result.style.display = 'block';
+  }
+
+  // Quiz
+  let answers = {};
+  function selectOpt(el, step, val) {
+    el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    answers['step' + step] = val;
+  }
+  function nextStep(n) {
+    document.getElementById('step' + (n-1)).classList.remove('active');
+    document.getElementById('step' + n).classList.add('active');
+    document.getElementById('dot' + n).classList.add('done');
+  }
+  function showResult() {
+    document.getElementById('step3').style.display = 'none';
+    const result = document.getElementById('quiz-result');
+    result.style.display = 'block';
+    const level = answers.step1 || 'secondary';
+    const subject = answers.step2 || 'math';
+    const goal = answers.step3 || 'basics';
+    const levels = { primary:'ประถม', secondary:'มัธยมต้น', high:'มัธยมปลาย', adult:'ผู้ใหญ่' };
+    const subjects = { math:'คณิตศาสตร์', english:'ภาษาอังกฤษ', science:'วิทยาศาสตร์', thai:'ภาษาไทย' };
+    const goals = { basics:'เสริมพื้นฐาน', exam:'เตรียมสอบ', speed:'เพิ่มความมั่นใจ', advanced:'เรียนล่วงหน้า' };
+    document.getElementById('result-level').textContent = `${subjects[subject] || subject} ${levels[level] || level}`;
+    document.getElementById('result-desc').textContent = `เป้าหมาย: ${goals[goal] || goal}`;
+    document.getElementById('result-courses').innerHTML = `
+      <strong>หลักสูตรแนะนำสำหรับคุณ:</strong><br>
+      📖 ${subjects[subject] || subject} ระดับ${levels[level] || level} — เรียนสัปดาห์ละ 2-3 ครั้ง<br>
+      🎯 เน้น ${goals[goal] || goal} ด้วยเนื้อหาที่ตรงเป้า<br>
+      👩‍🏫 ครูผู้เชี่ยวชาญเฉพาะสาขา ดูแลใกล้ชิด<br>
+      ✅ ฟรี! ทดสอบระดับและปรึกษาครู 1:1 ก่อนเรียน
+    `;
+  }
+  function resetQuiz() {
+    answers = {};
+    document.getElementById('quiz-result').style.display = 'none';
+    document.getElementById('step3').style.display = '';
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+    document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.progress-dot').forEach((d, i) => {
+      if (i === 0) d.classList.add('done'); else d.classList.remove('done');
+    });
+  }
+
+  // Form submit
+  function submitForm() {
+    alert('✅ ขอบคุณที่สนใจ!\nทีมงาน LIFE Academy จะติดต่อกลับภายใน 24 ชั่วโมงนะครับ 😊\n\n(Demo Mode — ข้อมูลยังไม่ได้ส่งจริง)');
+  }
+
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.course-card, .teacher-card, .service-card, .testimonial-card, .pricing-card, .news-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
