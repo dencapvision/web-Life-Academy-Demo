@@ -1129,7 +1129,7 @@ function goStep(n) {
     if(i < n) document.getElementById('line'+i)?.classList.add('done');
     else document.getElementById('line'+i)?.classList.remove('done');
   });
-  card.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('card'+n)?.scrollIntoView({behavior:'smooth',block:'start'});
   if(n === 4) buildReview();
   if(n === 3) updatePayAmount();
 }
