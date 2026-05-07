@@ -1044,6 +1044,7 @@ input[type=color]{width:44px;height:44px;border-radius:10px;border:2px solid var
 <script>
 // ══ CONFIG ════════════════════════════════════════════════════
 const API_URL    = 'https://nheppvjayzxlblkeanxs.supabase.co/functions/v1/line-notify';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZXBwdmpheXp4bGJsa2VhbnhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwNzYyMDcsImV4cCI6MjA4NjY1MjIwN30.gL5j6E9nlQH7JPfvzE0kqgjlgCFjL0e3p-hu039O6K0';
 const DRAFT_KEY  = 'cap_onboarding_draft';
 let currentSection = 1;
 let selectedPhases = new Set();
@@ -1234,7 +1235,11 @@ async function sendLineOnboardingNotify(data) {
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'apikey': SUPABASE_ANON_KEY
+      },
       body: JSON.stringify({
         project: 'ONBOARDING',
         formType: 'Onboarding Brief',
