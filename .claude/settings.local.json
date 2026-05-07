@@ -2,7 +2,23 @@
   "permissions": {
     "allow": [
       "Bash(start:*)",
-      "mcp__plugin_supabase_supabase__list_projects"
+      "mcp__plugin_supabase_supabase__list_projects",
+      "mcp__claude_ai_Supabase__list_tables",
+      "mcp__claude_ai_Supabase__list_edge_functions",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__accounts_list",
+      "mcp__claude_ai_Supabase__get_edge_function",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__d1_databases_list",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__set_active_account",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__d1_database_query",
+      "mcp__claude_ai_Supabase__apply_migration",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__workers_list",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__workers_get_worker_code",
+      "mcp__claude_ai_Supabase__deploy_edge_function",
+      "mcp__claude_ai_Supabase__get_project_url",
+      "Bash(npx wrangler:*)",
+      "WebFetch(domain:dencapvision.github.io)",
+      "mcp__claude_ai_Supabase__get_publishable_keys"
     ]
   }
 }
